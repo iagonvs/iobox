@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-                <div style="text-align: center;">
-                    <h2>Controle Estoque TI</h2>
+                <div style="text-align: right;">
+                <img src="{{('/img/logo.png')}}" alt="">
                     <br>
             </div>
 <div class="col-lg-3 col-xs-6">
@@ -71,18 +71,18 @@
 <br>
 
 
+
       <div class="row">
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
-              
-              <div class="box">
-                  <div class="box-header">
-                      <h3 class="box-title">Ultimas entradas</h3>                                    
-                  </div><!-- /.box-header -->
-                  <div class="box-body table-responsive">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead class="thead-dark">
+
+              <div>
+                <h3>Ultimas Entradas</h3>
+                <br>
+              </div>
+              <table  class="table table-bordered table-striped">
+                <thead>
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Data Entrada</th>
@@ -105,23 +105,19 @@
               </table>
             </div>
           </div>
-
-
-            </div>
-          </div>
         </div>
+
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
+                <div>
+                    <h3>Ultimas Saídas</h3>
+                    <br>
+                  </div>
+
               
-              
-                <div class="box">
-                    <div class="box-header">
-                        <h3 class="box-title">Ultimas saídas</h3>                                    
-                    </div><!-- /.box-header -->
-                    <div class="box-body table-responsive">
-                <table id="example1" class="table table-bordered table-striped">
-                        <thead class="thead-dark">
+                <table  class="table table-bordered table-striped">
+                        <thead>
                           <tr>
                             <th scope="col">#</th>
                             <th scope="col">Data Saída</th>
@@ -146,12 +142,12 @@
                     
                       
                       </table>
-                    </div>
-                  </div>
+      
               
             </div>
           </div>
         </div>
+
         @if(session('sucess'))
         <div class="alert alert-success">
             <p>{{session('sucess')}}</p>

@@ -3,12 +3,12 @@
 @section('content')
 <div class="container">
     <div style="text-align: center;">
-        <h2>Registrar Saída</h2>
-        <br>
+        <h2></h2>
+     
 </div>
 <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title">Cadastrar Item</h3>
+                    <h3 class="box-title">Registrar Saída</h3>
                 </div><!-- /.box-header -->
 
     <form role="form" action="{{route('cadastrar_saida.update', $editar->idEstoque)}}" method="post">

@@ -55,8 +55,8 @@
         <td>{{$listar->data_garantia}}</td>
         <td>{{$listar->descricao_item}}</td>
         <td>{{$listar->razao_social}}</td>
-        <td><a href="cadastrar_estoque/{{$listar->idEstoque}}/edit">Editar</a>
-        <a href="cadastrar_saida/{{$listar->idEstoque}}/edit">Saida</a>
+        <td><a href="cadastrar_estoque/{{$listar->idEstoque}}/edit">Editar</a> / 
+        <a href="cadastrar_saida/{{$listar->idEstoque}}/edit">Saida</a> / 
         <a href="cadastrar_entrada/{{$listar->idEstoque}}/edit">Entrada</a></td>
         <form action="{{route('cadastrar_estoque.destroy', $listar->idEstoque)}}" method="POST">
           @csrf

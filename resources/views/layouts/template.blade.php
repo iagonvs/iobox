@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Estoque TI
+        <title>BOX I.O
             
         </title>
         <link rel="stylesheet" href="{{asset('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous')}}">
@@ -39,8 +39,10 @@
         <header class="header">
             <a href="/" class="logo">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                EstoqueTI
+                <img src="{{('/img/logod.png')}}" alt="">    
             </a>
+            <br>
+            <br>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
@@ -157,7 +159,8 @@
                         </div>
                     <br>
                     </div>
- 
+                    <br>
+                    <br>
                     <!-- search form -->
                     <form action="#" method="get" class="sidebar-form">
 

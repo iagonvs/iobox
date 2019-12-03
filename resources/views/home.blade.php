@@ -2,10 +2,7 @@
 
 @section('content')
 <div class="container">
-                <div style="text-align: right;">
-                <img src="{{('/img/logo.png')}}" alt="">
-                    <br>
-            </div>
+             
 <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-green">
                         <div class="inner">
@@ -159,7 +156,10 @@
         </div>
       @endif
       </div>
-      
+      <br>
+      <br>
+      <br>
+
       
     
 

@@ -2,9 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>BOX I.O
+        <title>  BOX I.O
             
         </title>
+        <link rel="icon" href="{{('/img/boxio.png')}}" />
         <link rel="stylesheet" href="{{asset('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous')}}">
         
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
@@ -34,13 +35,14 @@
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body class="skin-black" >
+    <body class="" >
         <!-- header logo: style can be found in header.less -->
         <header class="header">
-            <a href="/" class="logo">
-                <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                <img src="{{('/img/logod.png')}}" alt="">    
-            </a>
+            <br>
+                    <a href="/" class="logo">
+                        <!-- Add the class icon to your logo image or logo icon to add the margining -->
+                        <img src="{{('/img/boxio.png')}}" alt=""  style="width: 100px">    
+                    </a>
             <br>
             <br>
             <!-- Header Navbar: style can be found in header.less -->

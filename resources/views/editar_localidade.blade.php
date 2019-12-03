@@ -2,13 +2,15 @@
 
 @section('content')
 <div class="container">
-<form action="{{route('cadastrar_localidade.update', $editar->idLocalidade)}}" method="post">
+    <div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title">Atualizar Localidade</h3>
+        </div><!-- /.box-header -->
+<form role="form" action="{{route('cadastrar_localidade.update', $editar->idLocalidade)}}" method="post">
         @csrf
         @method('PUT')
-        <div style="text-align: center;">
-                <h2>Atualizar Localidade</h2>
-                <br>
-        </div>
+        <div class="box-body">
+ 
                 <div class="form-group">
                   <label for="item">Localidade</label>
                   <input type="text" class="form-control" id="localidade" name="localidade" value="{{$editar->localidade}}"  >
@@ -18,9 +20,11 @@
                         <input type="text" class="form-control" id="setor" name="setor" value="{{$editar->setor}}"  >
                       </div>
                      
-        
+                      <button type="submit" class="btn btn-primary">Atualizar</button>
                 </div>
-                <button type="submit" class="btn btn-primary">Atualizar</button>
+              </div>
+                
               </form>
+            </div>
             </div>
 @endsection

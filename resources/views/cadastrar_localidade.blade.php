@@ -3,13 +3,17 @@
 @section('content')
 <div class="container">
     <div style="text-align: center;">
-        <h2>Cadastrar Localidade</h2>
+        
         <br>
 </div>
+<div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title">Cadastrar Localidade</h3>
+        </div><!-- /.box-header -->
 
-    <form action="{{route('cadastrar_localidade.store')}}" method="post">
+    <form role="form" action="{{route('cadastrar_localidade.store')}}" method="post">
         @csrf
-
+        <div class="box-body">
         <div class="form-group">
                 <label for="quantidade">Localidade</label>
                 <input type="text" class="form-control" name="localidade" placeholder="Localidade">
@@ -21,7 +25,9 @@
         
  
         <button type="submit" class="btn btn-primary">Cadastrar Localidade</button>
+    </div>
       </form>
+    </div>
 @if(session('sucess'))
     <div class="alert alert-success">
         <p>{{session('sucess')}}</p>

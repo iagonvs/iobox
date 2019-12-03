@@ -2,20 +2,24 @@
 
 @section('content')
 <div class="container">
-<form action="{{route('cadastrar_item.update', $editar->idItem)}}" method="post">
+    <div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title">Atualizar Item</h3>
+        </div><!-- /.box-header -->
+<form role="form"  action="{{route('cadastrar_item.update', $editar->idItem)}}" method="post">
         @csrf
         @method('PUT')
-        <div style="text-align: center;">
-                <h2>Atualizar Item</h2>
-                <br>
-        </div>
+        <div class="box-body">
+
                 <div class="form-group">
                   <label for="item">Descrição do Item</label>
                   <input type="text" class="form-control" id="descricao_item" name="descricao_item" value="{{$editar->descricao_item}}"  placeholder="Item">
                 </div>
-        
-                </div>
                 <button type="submit" class="btn btn-primary">Atualizar</button>
+                </div>
+                
+              </div>
               </form>
+            </div>
             </div>
 @endsection

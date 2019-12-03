@@ -6,9 +6,14 @@
         <h2>Registrar Saída</h2>
         <br>
 </div>
+<div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Cadastrar Item</h3>
+                </div><!-- /.box-header -->
 
-    <form action="{{route('cadastrar_saida.update', $editar->idEstoque)}}" method="post">
+    <form role="form" action="{{route('cadastrar_saida.update', $editar->idEstoque)}}" method="post">
         @csrf
+        <div class="box-body">
         @method('PUT')
         <div class="form-group">
                 <label for="quantidade">Quantidade Total</label>
@@ -50,7 +55,9 @@
         
  <br>
         <button type="submit" class="btn btn-primary">Cadastrar</button>
+</div>
       </form>
+</div>
 
       
 @if(session('saidaok'))

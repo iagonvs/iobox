@@ -2,13 +2,15 @@
 
 @section('content')
 <div class="container">
-<form action="{{route('cadastrar_fornecedor.update', $editar->idFornecedor)}}" method="post">
+    <div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title">Atualizar Fornecedor</h3>
+        </div><!-- /.box-header -->
+<form role="form" action="{{route('cadastrar_fornecedor.update', $editar->idFornecedor)}}" method="post">
         @csrf
         @method('PUT')
-        <div style="text-align: center;">
-                <h2>Atualizar Fornecedor</h2>
-                <br>
-        </div>
+        <div class="box-body">
+
                 <div class="form-group">
                   <label for="item">Razão Social</label>
                   <input type="text" class="form-control" id="razao_social" name="razao_social" value="{{$editar->razao_social}}"  >
@@ -33,9 +35,11 @@
                                         <label for="item">E-mail</label>
                                         <input type="text" class="form-control" id="email_fornecedor" name="email_fornecedor" value="{{$editar->email_fornecedor}}" >
                                       </div>
-        
+                                      <button type="submit" class="btn btn-primary">Atualizar</button>
                 </div>
-                <button type="submit" class="btn btn-primary">Atualizar</button>
+              </div>
+              
               </form>
+            </div>
             </div>
 @endsection

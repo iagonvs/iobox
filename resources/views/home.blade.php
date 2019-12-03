@@ -76,7 +76,12 @@
           <div class="card">
             <div class="card-body">
               <h3 class="card-title">Ultimas entradas</h3>
-              <table class="table">
+              <div class="box">
+                  <div class="box-header">
+                      <h3 class="box-title">Itens</h3>                                    
+                  </div><!-- /.box-header -->
+                  <div class="box-body table-responsive">
+              <table id="example1" class="table table-bordered table-striped">
                 <thead class="thead-dark">
                   <tr>
                     <th scope="col">#</th>
@@ -98,6 +103,8 @@
             
               
               </table>
+            </div>
+          </div>
 
 
             </div>
@@ -108,7 +115,12 @@
             <div class="card-body">
                 <h3 class="card-title">Ultimas saídas</h3>
               
-                <table class="table">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Itens</h3>                                    
+                    </div><!-- /.box-header -->
+                    <div class="box-body table-responsive">
+                <table id="example1" class="table table-bordered table-striped">
                         <thead class="thead-dark">
                           <tr>
                             <th scope="col">#</th>
@@ -134,6 +146,8 @@
                     
                       
                       </table>
+                    </div>
+                  </div>
               
             </div>
           </div>

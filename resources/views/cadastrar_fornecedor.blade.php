@@ -3,13 +3,17 @@
 @section('content')
 <div class="container">
     <div style="text-align: center;">
-        <h2>Cadastrar Fornecedor</h2>
+        
         <br>
 </div>
+<div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Cadastrar Fornecedor</h3>
+                </div><!-- /.box-header -->
 
-    <form action="{{route('cadastrar_fornecedor.store')}}" method="post">
+    <form role="form"  action="{{route('cadastrar_fornecedor.store')}}" method="post">
         @csrf
-
+        <div class="box-body">
         <div class="form-group">
                 <label for="quantidade">Razão Social</label>
                 <input type="text" class="form-control" name="razao_social" placeholder="Razão Social">
@@ -36,7 +40,9 @@
         </div>
  
         <button type="submit" class="btn btn-primary">Cadastrar Fornecedor</button>
+</div>
       </form>
+</div>
 
 @if(session('sucess'))
     <div class="alert alert-success">

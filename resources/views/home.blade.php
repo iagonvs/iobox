@@ -75,10 +75,10 @@
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
-              <h3 class="card-title">Ultimas entradas</h3>
+              
               <div class="box">
                   <div class="box-header">
-                      <h3 class="box-title">Itens</h3>                                    
+                      <h3 class="box-title">Ultimas entradas</h3>                                    
                   </div><!-- /.box-header -->
                   <div class="box-body table-responsive">
               <table id="example1" class="table table-bordered table-striped">
@@ -113,11 +113,11 @@
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
-                <h3 class="card-title">Ultimas saídas</h3>
+              
               
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Itens</h3>                                    
+                        <h3 class="box-title">Ultimas saídas</h3>                                    
                     </div><!-- /.box-header -->
                     <div class="box-body table-responsive">
                 <table id="example1" class="table table-bordered table-striped">

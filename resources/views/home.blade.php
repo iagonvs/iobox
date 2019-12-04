@@ -1,7 +1,10 @@
 @extends('layouts.template')
 
 @section('content')
-<div class="container">
+
+<div class="container" style="margin-top: 55px;">
+
+          
              
 <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-green">
@@ -121,7 +124,7 @@
                             <th scope="col">Quantidade Saída</th>
                             <th scope="col">Localidade</th>
                             <th scope="col">Descrição do Item</th>
-                            <th scope="col">Descrição da saída</th>
+                            
                           </tr>
                         </thead>
                         @foreach ($saida as $listar)
@@ -132,7 +135,7 @@
                             <td>{{$listar->quantidade_saida}}</td>
                             <td>{{$listar->localidade}}</td>
                             <td>{{$listar->descricao_item}}</td>    
-                            <td>{{$listar->descricao_saida}}</td>      
+                                  
                           </tr>
                         </tbody>
                         @endforeach

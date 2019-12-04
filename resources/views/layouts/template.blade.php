@@ -35,16 +35,18 @@
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body class="" >
+    
+    <body class="skin-blue" >
         <!-- header logo: style can be found in header.less -->
+        
         <header class="header">
-            <br>
-                    <a href="/" class="logo">
-                        <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                        <img src="{{('/img/boxio.png')}}" alt=""  style="width: 100px">    
-                    </a>
-            <br>
-            <br>
+            
+                <a href="/" class="logo">
+                    <!-- Add the class icon to your logo image or logo icon to add the margining -->
+                   <img src="{{('/img/boxio.png')}}" alt=""  style="width: 80px;  margin-left: -50px; margin-top: 55px; "> 
+                </a>
+            
+             
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
@@ -132,7 +134,7 @@
                     
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
-                                    <div class="">
+                                    <div class="" style="color: black;">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -164,13 +166,13 @@
                     <br>
                     <br>
                     <!-- search form -->
-                    <form action="#" method="get" class="sidebar-form">
+                    {{-- <form action="#" method="get" class="sidebar-form">
 
-                    </form>
+                    </form> --}}
                     <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
-                        
+                            <br>
                             <li class="active">
                                     <a href="/">
                                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -234,9 +236,13 @@
                 <!-- /.sidebar -->
 
             </aside>
+
+           
+   
             <aside class="right-side" >
                 @yield('content')
            </aside>
+  
 
         <!-- add new calendar event modal -->
 
@@ -282,6 +288,8 @@
         <div class="footer-copyright text-center py-3" style="margin-top: 360px;">
            <p>© 2019  Equipe TI - Camurujipe:</p> 
           <p></p><a href="http://192.168.0.111/zabbix/"> Zabbix</a></p>
+          <p></p><a href="http://192.168.0.111"> GLPI</a></p>
+          <p></p><a href="http://camurujipe.milldesk.com"> Milldesk</a></p>
         </div>
         <!-- Copyright -->
       

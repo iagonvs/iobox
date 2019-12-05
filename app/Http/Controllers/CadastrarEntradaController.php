@@ -114,8 +114,11 @@ class CadastrarEntradaController extends Controller
         $entrada->data_entrada = now();
         $entrada->save();
 
+   
+        
 
-        return redirect()->route('home')
+
+        return redirect()->back()
        
         ->with(compact('editar'))
 
@@ -124,6 +127,8 @@ class CadastrarEntradaController extends Controller
         ->with(compact('estoque'))
 
         ->with(compact('fornecedor'))
+
+        ->with('cadastrook','Entrada registrada com sucesso')
 
         ->with(compact('item'));
     }

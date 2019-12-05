@@ -10,6 +10,8 @@ use App\Item;
 use App\Fornecedor;
 use App\Localidade;
 use App\Saida;
+use App\Usuario;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\View;
 
 
@@ -19,10 +21,15 @@ use DB;
 class CadastrarSaidaController extends Controller
 {
 
-    public function index()
+    public function index($id)
     {
-        $estoque = new Estoque();
-        $estoque = $estoque::all();
+        $editar = new Estoque();
+        $editar = DB::table ('tbEstoque')
+        ->join('tbItem', 'tbEstoque.idItem', '=', 'tbItem.idItem')
+        ->join('tbFornecedor', 'tbEstoque.idFornecedor', '=', 'tbFornecedor.idFornecedor')
+        ->select('idEstoque','quantidade_total','numero_nf','data_nf','data_garantia','tbItem.descricao_item', 'tbItem.idItem',  'tbFornecedor.razao_social', 'tbFornecedor.idFornecedor')
+        ->where('tbItem.idItem', $id) 
+        ->first();
 
         $item = new Item();
         $item = $item::all();
@@ -34,12 +41,15 @@ class CadastrarSaidaController extends Controller
         $localidade = $localidade::all();
 
         $saida = new Saida();
+        $saida = $saida::all();
 
         // return view('cadastrar_estoque', ['estoque'=>$estoque], ['fornecedor'=>$fornecedor], ['item'=>$item]);
 
-        return view('listar_estoque')
+        return view('registrar_saida')
 
         ->with(compact('editar'))
+
+        ->with(compact('localidade'))
 
         ->with(compact('saida'))
 
@@ -91,11 +101,10 @@ class CadastrarSaidaController extends Controller
         $estoque = new Estoque();
         $saida = new Saida();
 
-        $saida = DB::table ('tbSaida')
-        ->join('tbEstoque', 'tbSaida.idEstoque', '=', 'tbEstoque.idEstoque')
-        ->join('tbLocalidade', 'tbLocalidade.idLocalidade', '=', 'tbLocalidade.idLocalidade')
-        ->join('tbItem', 'tbItem.idItem', '=', 'tbEstoque.idItem')
-        ->select('idSaida','quantidade_saida','data_saida','tbLocalidade.localidade','tbEstoque.idEstoque','tbItem.descricao_item') 
+        $estoque = DB::table ('tbEstoque')
+        ->join('tbItem', 'tbEstoque.idItem', '=', 'tbItem.idItem')
+        ->join('tbFornecedor', 'tbEstoque.idFornecedor', '=', 'tbFornecedor.idFornecedor')
+        ->select('idEstoque','quantidade_total','numero_nf','data_nf','data_garantia','tbItem.descricao_item', 'tbItem.idItem',  'tbFornecedor.razao_social', 'tbFornecedor.idFornecedor')
         ->get();
 
         
@@ -108,7 +117,42 @@ class CadastrarSaidaController extends Controller
         $localidade = new Localidade();
         $localidade = $localidade::all();
 
-        return view('listar_estoque')
+        return view('listar_item_saida')
+
+        ->with(compact('saida'))
+
+        ->with(compact('estoque'))
+
+        ->with(compact('item'))
+
+        ->with(compact('localidade'))
+
+        ->with(compact('saida'));
+        
+    }
+
+    public function listar_entrada(){
+
+        $estoque = new Estoque();
+        $saida = new Saida();
+
+        $estoque = DB::table ('tbEstoque')
+        ->join('tbItem', 'tbEstoque.idItem', '=', 'tbItem.idItem')
+        ->join('tbFornecedor', 'tbEstoque.idFornecedor', '=', 'tbFornecedor.idFornecedor')
+        ->select('idEstoque','quantidade_total','numero_nf','data_nf','data_garantia','tbItem.descricao_item', 'tbItem.idItem',  'tbFornecedor.razao_social', 'tbFornecedor.idFornecedor')
+        ->get();
+
+        
+        $item = new Item();
+        $item = $item::all();
+
+        $fornecedor = new Fornecedor();
+        $fornecedor = $fornecedor::all();
+        
+        $localidade = new Localidade();
+        $localidade = $localidade::all();
+
+        return view('listar_item_entrada')
 
         ->with(compact('saida'))
 
@@ -177,6 +221,8 @@ class CadastrarSaidaController extends Controller
         $item = new Item();
         $fornecedor = new Fornecedor();
         $localidade = new Localidade();
+        $usuario = new Usuario();
+
 
         $saida = new Saida();
 
@@ -190,13 +236,16 @@ class CadastrarSaidaController extends Controller
         $saida->quantidade_saida = $request->input('quantidade_saida') ;
         $saida->idLocalidade = $request->input('idLocalidade') ;
         $saida->idEstoque = $request->input('idEstoque') ;
-        $saida->descricao_saida = $request->input('descricao_saida') ;
+        $saida->descricao_saida = $request->input('descricao_saida');
         $saida->data_saida = now();
+        $saida->idUsuario = $usuario = Auth::user()->id;
         $saida->save();
 
         return redirect()->back()
        
             ->with(compact('editar'))
+
+            ->with(compact('usuario'))
     
             ->with(compact('saida'))
     

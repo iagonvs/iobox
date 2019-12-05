@@ -86,7 +86,7 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Data Entrada</th>
-                    <th scope="col">Quantidade Total</th>
+                    <th scope="col">Quantidade Entrada</th>
                     <th scope="col">Item</th>
                   </tr>
                 </thead>
@@ -95,7 +95,7 @@
                   <tr>
                     <th scope="row">{{$listar->idEstoque}}</th>
                     <td>{{$listar->data_entrada}}</td>
-                    <td>{{$listar->quantidade_total}}</td>
+                    <td>{{$listar->quantidade_entrada}}</td>
                     <td>{{$listar->descricao_item}}</td>         
                   </tr>
                 </tbody>
@@ -124,6 +124,7 @@
                             <th scope="col">Quantidade Saída</th>
                             <th scope="col">Localidade</th>
                             <th scope="col">Descrição do Item</th>
+                            <th scope="col">Usuario</th>
                             
                           </tr>
                         </thead>
@@ -134,7 +135,8 @@
                             <td>{{$listar->data_saida}}</td>
                             <td>{{$listar->quantidade_saida}}</td>
                             <td>{{$listar->localidade}}</td>
-                            <td>{{$listar->descricao_item}}</td>    
+                            <td>{{$listar->descricao_item}}</td> 
+                            <td>{{$listar->name}}</td>   
                                   
                           </tr>
                         </tbody>

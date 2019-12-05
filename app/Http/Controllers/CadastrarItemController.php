@@ -30,7 +30,8 @@ class CadastrarItemController extends Controller
         ->join('tbEstoque', 'tbSaida.idEstoque', '=', 'tbEstoque.idEstoque')
         ->join('tbLocalidade', 'tbLocalidade.idLocalidade', '=', 'tbLocalidade.idLocalidade')
         ->join('tbItem', 'tbItem.idItem', '=', 'tbEstoque.idItem')
-        ->select('idSaida','quantidade_saida', 'data_saida','descricao_saida','tbLocalidade.localidade','tbEstoque.idEstoque','tbItem.descricao_item') 
+        ->join('users', 'tbSaida.idUsuario', '=', 'users.id')
+        ->select('idSaida','quantidade_saida', 'data_saida','descricao_saida','tbLocalidade.localidade','tbEstoque.idEstoque','tbItem.descricao_item', 'users.name') 
         ->orderBy('data_saida', 'DESC')
         ->Paginate(5);
 

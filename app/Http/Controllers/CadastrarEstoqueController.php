@@ -9,6 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use App\Estoque;
 use App\Item;
 use App\Fornecedor;
+use App\Localidade;
 use App\Http\Controllers\View;
 
 
@@ -22,6 +23,9 @@ class CadastrarEstoqueController extends Controller
         $estoque = new Estoque();
         $estoque = $estoque::all();
 
+        $localidade = new Localidade();
+        $localidade = $localidade::all();
+
         $item = new Item();
         $item = $item::all();
 
@@ -33,6 +37,8 @@ class CadastrarEstoqueController extends Controller
         return view('cadastrar_estoque')
 
         ->with(compact('estoque'))
+
+        ->with(compact('localidade'))
 
         ->with(compact('fornecedor'))
 
@@ -53,6 +59,7 @@ class CadastrarEstoqueController extends Controller
         $estoque = new Estoque();
         $item = new Item();
         $fornecedor = new Fornecedor();
+        $localidade = new Localidade();
 
         
         $estoque->quantidade_total = $request->input('quantidade_total') ;
@@ -61,19 +68,10 @@ class CadastrarEstoqueController extends Controller
         $estoque->data_garantia = $request->input('data_garantia') ;
         $estoque->idItem = $request->input('idItem') ;
         $estoque->idFornecedor = $request->input('idFornecedor') ;
+        $estoque->idLocalidade = $request->input('idLocalidade') ;
         $estoque->data_entrada = now();
 
         $estoque->save();
-
-        if ($estoque) {
-            return redirect()
-                       ->back()
-                       ->with('sucess','Localidade cadastrado com sucesso');
-            } else {
-                        return redirect()
-                               ->back()
-                               ->with('errors', 'Ocorreu um erro ao tentar cadastrar Localidade');
-                    }
 
  
         return redirect()->route('home')
@@ -81,6 +79,10 @@ class CadastrarEstoqueController extends Controller
         ->with(compact('estoque'))
 
         ->with(compact('fornecedor'))
+
+        ->with(compact('localidade'))
+
+        ->with('sucess','Estoque cadastrado com sucesso')
 
         ->with(compact('item'));
 
@@ -100,7 +102,8 @@ class CadastrarEstoqueController extends Controller
         $estoque = DB::table ('tbEstoque')
         ->join('tbItem', 'tbEstoque.idItem', '=', 'tbItem.idItem')
         ->join('tbFornecedor', 'tbEstoque.idFornecedor', '=', 'tbFornecedor.idFornecedor')
-        ->select('idEstoque','quantidade_total','data_entrada','numero_nf','data_nf','data_garantia','tbItem.descricao_item', 'tbFornecedor.razao_social') 
+        ->join('tbLocalidade', 'tbEstoque.idLocalidade', '=', 'tbEstoque.idLocalidade')
+        ->select('idEstoque','quantidade_total','data_entrada','numero_nf','data_nf','data_garantia','tbItem.descricao_item', 'tbFornecedor.razao_social', 'tbLocalidade.localidade', 'tbLocalidade.setor') 
         ->orderBy('data_entrada', 'DESC')
         ->get();
 
@@ -110,11 +113,16 @@ class CadastrarEstoqueController extends Controller
 
         $fornecedor = new Fornecedor();
         $fornecedor = $fornecedor::all();
+
+        $localidade = new Localidade();
+        $localidade = $localidade::all();
         
 
         return view('listar_estoque')
 
         ->with(compact('estoque'))
+
+        ->with(compact('localidade'))
 
         ->with(compact('item'))
 
@@ -139,6 +147,10 @@ class CadastrarEstoqueController extends Controller
 
         $fornecedor = new Fornecedor();
         $fornecedor = $fornecedor::all();
+
+        
+        $localidade = new Localidade();
+        $localidade = $localidade::all();
         
 
        
@@ -147,6 +159,8 @@ class CadastrarEstoqueController extends Controller
         ->with(compact('editar'))
 
         ->with(compact('fornecedor'))
+
+        ->with(compact('localidade'))
 
         ->with(compact('item'));
 

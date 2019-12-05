@@ -31,15 +31,27 @@
                 <label for="quantidade">Data da Garantia</label>
                 <input type="date" class="form-control" name="data_garantia" placeholder="Data da Garantia">
         </div>
+        <label for="quantidade">Item</label>
         <select name='idItem' class="form-control form-control-lg">
+                
                 @foreach ($item as $listar)
               <option value='{{$listar->idItem}}'>{{$listar->descricao_item}}</option>
               @endforeach
         </select >
         <br>
+        <label for="quantidade">Fornecedor</label>
         <select name='idFornecedor' class="form-control form-control-lg">
+                
                 @foreach ($fornecedor as $listar)
               <option value='{{$listar->idFornecedor}}'>{{$listar->razao_social}}</option>
+              @endforeach
+        </select >
+        <br>
+        <label for="quantidade">Localidade</label>
+        <select name='idLocalidade' class="form-control form-control-lg">
+                
+                @foreach ($localidade as $listar)
+              <option value='{{$listar->idLocalidade}}'>{{$listar->localidade}} / {{$listar->setor}}</option>
               @endforeach
         </select >
         
@@ -57,14 +69,4 @@
 @endif
 
 
-@if(session('sucess'))
-<div class="alert alert-success">
-    <p>{{session('sucess')}}</p>
-</div>
-@endif
-@if(session('errors'))
-<div class="alert alert-success">
-    <p>{{session('errors')}}</p>
-</div>
-@endif
 @endsection

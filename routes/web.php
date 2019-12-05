@@ -20,6 +20,7 @@ Route::resource('cadastrar_fornecedor', 'CadastrarFornecedorController')->middle
 Route::resource('cadastrar_localidade', 'CadastrarLocalidadeController')->middleware('auth');
 Route::resource('cadastrar_estoque', 'CadastrarEstoqueController')->middleware('auth');
 Route::resource('cadastrar_saida', 'CadastrarSaidaController')->middleware('auth');
+Route::resource('registrar_saida', 'CadastrarSaidaController')->middleware('auth');
 Route::resource('cadastrar_entrada', 'CadastrarEntradaController')->middleware('auth');
 
 
@@ -30,6 +31,8 @@ Route::get('listar_fornecedor', 'CadastrarFornecedorController@listar')->name('l
 Route::get('listar_localidade', 'CadastrarLocalidadeController@listar')->name('listar_localidade')->middleware('auth');
 Route::get('listar_estoque', 'CadastrarEstoqueController@listar')->name('listar_estoque')->middleware('auth');
 Route::get('listar_saida', 'CadastrarSaidaController@listar')->name('listar_saida')->middleware('auth');
+Route::get('listar_item_saida', 'CadastrarSaidaController@listar')->name('listar_item_saida')->middleware('auth');
+Route::get('listar_item_entrada', 'CadastrarSaidaController@listar_entrada')->name('listar_item_entrada')->middleware('auth');
 
 
 // Route::get('/home', 'HomeController@index')->name('home');

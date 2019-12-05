@@ -54,4 +54,10 @@
       </form>
 </div>
 </div>
+
+@if(session('cadastrook'))
+<div class="alert alert-success">
+    <p>{{session('cadastrook')}}</p>
+</div>
+@endif
 @endsection

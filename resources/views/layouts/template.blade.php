@@ -222,15 +222,25 @@
                             <li><a href="listar_localidade"><i class="fa fa-angle-double-right"></i> Listar Localidades</a></li>
                         </ul>
             </li>
-                                                
-
-
                 </li>
-                {{-- <li>
-                    <a href="cadastrar_saida">
-                        <i class="fa fa-th"></i> <span>Registrar Saída</span> 
-                    </a>
-                     </li> --}}
+                <li class="">
+                        <a href="listar_item_saida">
+                            <i class="fa fa-bar-chart-o"></i>
+                            <span>Saída</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                     
+            </li>
+                </li>
+                <li class="">
+                        <a href="listar_item_entrada">
+                            <i class="fa fa-bar-chart-o"></i>
+                            <span>Entrada</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+       
+            </li>
+                </li>
 
                 </section>
                 <!-- /.sidebar -->

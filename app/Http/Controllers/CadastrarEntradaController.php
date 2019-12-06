@@ -19,7 +19,7 @@ class CadastrarEntradaController extends Controller
 
     public function index()
     {
-        //
+    
     }
 
     public function create()

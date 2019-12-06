@@ -150,16 +150,7 @@
           </div>
         </div>
 
-        @if(session('sucess'))
-        <div class="alert alert-success">
-            <p>{{session('sucess')}}</p>
-        </div>
-      @endif
-      @if(session('errors'))
-        <div class="alert alert-success">
-            <p>{{session('errors')}}</p>
-        </div>
-      @endif
+
       </div>
       <br>
       <br>

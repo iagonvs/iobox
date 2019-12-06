@@ -27,7 +27,9 @@ class CadastrarFornecedorController extends Controller
         $fornecedor = new Fornecedor();
         $fornecedor = $fornecedor::all();
 
-        return view('cadastrar_fornecedor',  ['fornecedor'=>$fornecedor]);
+        return redirect()->route('cadastrar_fornecedor')
+
+        ->with(compact('fornecedor')); 
     }
 
     /**
@@ -89,6 +91,10 @@ class CadastrarFornecedorController extends Controller
         $fornecedor = new Fornecedor();
 
         $fornecedor = DB::table ('tbFornecedor')->Paginate(10);
+
+    
+
+        
 
         return view('listar_fornecedor', compact('fornecedor'));
     }

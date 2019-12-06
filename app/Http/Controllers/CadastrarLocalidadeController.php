@@ -22,7 +22,10 @@ class CadastrarLocalidadeController extends Controller
         $localidade = new Localidade();
         $localidade = $localidade::all();
 
-        return view('cadastrar_localidade',  ['localidade'=>$localidade]);
+        return redirect()->route('cadastrar_localidade')
+
+        ->with(compact('localidade')); 
+        
     }
 
     /**

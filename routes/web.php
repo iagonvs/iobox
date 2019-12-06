@@ -23,7 +23,7 @@ Route::resource('cadastrar_saida', 'CadastrarSaidaController')->middleware('auth
 Route::resource('registrar_saida', 'CadastrarSaidaController')->middleware('auth');
 Route::resource('cadastrar_entrada', 'CadastrarEntradaController')->middleware('auth');
 
-
+Route::get('editar_item', 'CadastrarItemController@edit')->middleware('auth');
 
 //Listagens
 Route::get('listar_item', 'CadastrarItemController@listar')->name('listar_item')->middleware('auth');

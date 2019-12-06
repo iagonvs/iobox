@@ -19,8 +19,10 @@
                         <label for="item">Setor</label>
                         <input type="text" class="form-control" id="setor" name="setor" value="{{$editar->setor}}"  >
                       </div>
-                     
+                     <br>
                       <button type="submit" class="btn btn-primary">Atualizar</button>
+
+                      <a href="{{route('listar_localidade')}}"><button type="button" class="btn btn-info">Voltar</button></a> 
                 </div>
               </div>
                 

@@ -42,7 +42,7 @@
       <tr>
         <th scope="row">{{$listar->idItem}}</th>
         <td>{{$listar->descricao_item}}</td>
-        <td><a href="cadastrar_item/{{$listar->idItem}}/edit">Editar</a></td>
+        <td><a href="{{route('cadastrar_item.edit', $listar->idItem)}}">Editar</a></td>
         <form action="{{route('cadastrar_item.destroy', $listar->idItem)}}" method="POST">
           @csrf
           @method('DELETE')

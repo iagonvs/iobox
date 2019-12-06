@@ -15,7 +15,10 @@
                   <label for="item">Descrição do Item</label>
                   <input type="text" class="form-control" id="descricao_item" name="descricao_item" value="{{$editar->descricao_item}}"  placeholder="Item">
                 </div>
+                <br>
                 <button type="submit" class="btn btn-primary">Atualizar</button>
+
+                <a href="{{route('listar_item')}}"><button type="button" class="btn btn-info">Voltar</button></a> 
                 </div>
                 
               </div>

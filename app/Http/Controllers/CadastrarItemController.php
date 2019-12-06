@@ -74,7 +74,11 @@ class CadastrarItemController extends Controller
         $item = new Item();
         $item = $item::all();
 
-        return view('cadastrar_item',  ['item'=>$item]);
+        return redirect()->route('cadastrar_item')
+
+        ->with(compact('item'));
+
+        
     }
 
 

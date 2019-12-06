@@ -45,7 +45,7 @@ class CadastrarSaidaController extends Controller
 
         // return view('cadastrar_estoque', ['estoque'=>$estoque], ['fornecedor'=>$fornecedor], ['item'=>$item]);
 
-        return view('registrar_saida')
+        return redirect()->route('registrar_saida')
 
         ->with(compact('editar'))
 

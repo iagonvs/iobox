@@ -35,7 +35,10 @@
                                         <label for="item">E-mail</label>
                                         <input type="text" class="form-control" id="email_fornecedor" name="email_fornecedor" value="{{$editar->email_fornecedor}}" >
                                       </div>
+                                      <br>
                                       <button type="submit" class="btn btn-primary">Atualizar</button>
+
+                                      <a href="{{route('listar_fornecedor')}}"><button type="button" class="btn btn-info">Voltar</button></a> 
                 </div>
               </div>
               

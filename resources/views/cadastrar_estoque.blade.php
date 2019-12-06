@@ -62,11 +62,7 @@
 </div>
 </div>
 
-@if(session('sucess'))
-    <div class="alert alert-success">
-        <p>{{session('sucess')}}</p>
-    </div>
-@endif
+
 
 
 @endsection

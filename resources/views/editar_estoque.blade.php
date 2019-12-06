@@ -39,7 +39,10 @@
                           <option value='{{$listar->idFornecedor}}'>{{$listar->razao_social}}</option>
                           @endforeach
                     </select >
+                    <br>
                     <button type="submit" class="btn btn-primary">Atualizar</button>
+
+                   <a href="{{route('listar_estoque')}}"><button type="button" class="btn btn-info">Voltar</button></a> 
                 </div>
                 
               </div>

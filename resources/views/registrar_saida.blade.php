@@ -57,6 +57,8 @@
         
  <br>
         <button type="submit" class="btn btn-primary">Cadastrar</button>
+
+        <a href="{{route('listar_item_saida')}}"><button type="button" class="btn btn-info">Voltar</button></a> 
 </div>
       </form>
 </div>

@@ -34,7 +34,7 @@ class CadastrarEstoqueController extends Controller
 
         // return view('cadastrar_estoque', ['estoque'=>$estoque], ['fornecedor'=>$fornecedor], ['item'=>$item]);
 
-        return redirect()->route('cadastrar_estoque')
+        return view('cadastrar_estoque')
 
         ->with(compact('estoque'))
 

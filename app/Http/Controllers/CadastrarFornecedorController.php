@@ -27,7 +27,7 @@ class CadastrarFornecedorController extends Controller
         $fornecedor = new Fornecedor();
         $fornecedor = $fornecedor::all();
 
-        return redirect()->route('cadastrar_fornecedor')
+        return view('cadastrar_fornecedor')
 
         ->with(compact('fornecedor')); 
     }

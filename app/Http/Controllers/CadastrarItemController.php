@@ -74,7 +74,7 @@ class CadastrarItemController extends Controller
         $item = new Item();
         $item = $item::all();
 
-        return redirect()->route('cadastrar_item')
+        return view('cadastrar_item')
 
         ->with(compact('item'));
 
@@ -121,13 +121,18 @@ class CadastrarItemController extends Controller
         // return view('listar_item', compact('item'));
     }
 
-    public function listar(){
+    public function listar(Request $request){
 
         $item = new Item();
 
-        $item = DB::table ('tbItem')->Paginate(10);
+        $search = $request->get('search');
 
-        return view('listar_item', compact('item'));
+        $item = Item::where('descricao_item', 'LIKE', '%'.$search.'%')
+                            ->paginate(10);
+
+        return view('listar_item', compact('item', 'search'));
+    
+
     }
 
     public function edit($id)

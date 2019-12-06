@@ -28,6 +28,22 @@
         <h3 class="box-title">Itens</h3>                                    
     </div><!-- /.box-header -->
     <div class="box-body table-responsive">
+        <div class="col-sm-6">
+            <form action="{{ route('listar_item') }}" method="post">
+                @csrf
+                <label class="control-label">Pesquisar</label>
+
+                <input type="search" class="" name="search" value="{{ $search }}">
+
+                <button type="submit" class="btn btn-primary btn-sm" title="Pesquisar">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+            </form>
+        </div>
+        
+     
+        <br>
+        <br>
 <table id="example1" class="table table-bordered table-striped">
     <thead class="thead-dark">
       <tr>
@@ -53,7 +69,8 @@
     </tbody>
     @endforeach
 
-    {{ $item->links() }}
+    {{ $item->appends(['search' => $search])->links() }}
+
   </table>
 </div>
 </div>

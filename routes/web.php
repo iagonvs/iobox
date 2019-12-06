@@ -23,11 +23,15 @@ Route::resource('cadastrar_saida', 'CadastrarSaidaController')->middleware('auth
 Route::resource('registrar_saida', 'CadastrarSaidaController')->middleware('auth');
 Route::resource('cadastrar_entrada', 'CadastrarEntradaController')->middleware('auth');
 
-Route::get('editar_item', 'CadastrarItemController@edit')->middleware('auth');
+
 
 //Listagens
 Route::get('listar_item', 'CadastrarItemController@listar')->name('listar_item')->middleware('auth');
+Route::POST('listar_item', 'CadastrarItemController@listar')->name('listar_item')->middleware('auth');
+
+Route::post('listar_fornecedor', 'CadastrarFornecedorController@listar')->name('listar_fornecedor')->middleware('auth');
 Route::get('listar_fornecedor', 'CadastrarFornecedorController@listar')->name('listar_fornecedor')->middleware('auth');
+
 Route::get('listar_localidade', 'CadastrarLocalidadeController@listar')->name('listar_localidade')->middleware('auth');
 Route::get('listar_estoque', 'CadastrarEstoqueController@listar')->name('listar_estoque')->middleware('auth');
 Route::get('listar_saida', 'CadastrarSaidaController@listar')->name('listar_saida')->middleware('auth');

@@ -52,6 +52,12 @@
         
         <header class="header">
             
+                <a href="/home2" class="logo">
+                    <!-- Add the class icon to your logo image or logo icon to add the margining -->
+                   <img src="{{('/img/boxio.png')}}" alt=""  style="width: 80px;  margin-left: -50px; margin-top: 55px; "> 
+                </a>
+            
+             
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
@@ -70,48 +76,31 @@
                             </ul>
                         </li>
                         <!-- User Account: style can be found in dropdown.less -->
-                    <li>
-                        <a  class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                      document.getElementById('logout-form').submit();">
-                         {{ __('Logout') }}
-                     </a>
-                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                         @csrf
-                     </form>
-                    </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Registrar') }}</a>
-                        </li>
-                        <li class="nav-item">
+                        <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-user"></i>
                                 <span> {{ Auth::user()->name }}<i class="caret"></i></span>
                                 
                             </a>
-
                             <ul class="dropdown-menu">
                     
                                 <!-- Menu Footer-->
-                                {{-- <li class="user-footer" style="color: black;">
+                                <li class="user-footer" style="color: black;">
                                     <div class="" style="color: black;">
-                                            <a style="color: black;" class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                          document.getElementById('logout-form').submit();">
-                                             {{ __('Logout') }}
-                                         </a>
-                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                             @csrf
-                                         </form>
+                                        <a style="color: black;" class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
                                     </div>
-                                </li> --}}
+                                </li>
                             </ul>
                         </li>
                     </ul>
                 </div>
-
-
-            
             </nav>
         </header>
         <div  class="wrapper row-offcanvas row-offcanvas-left"  >
@@ -135,15 +124,9 @@
                     <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
-                            <a href="/" class="">
-                                <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                               <img src="{{('/img/boxio.png')}}" alt=""  style="width: 100px; margin-left: 25%;  position: relative;     MARGIN-TOP: -54px;"> 
-                            </a>
-                            <br>
-                            <br>
                             <br>
                             <li class="active">
-                                    <a href="/">
+                                    <a href="/home2">
                                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                                     </a>
                                 </li> 
@@ -154,8 +137,8 @@
                                         <i class="fa fa-angle-left pull-right"></i>
                                     </a>
                                     <ul class="treeview-menu">
-                                        <li><a href="{{route('cadastrar_estoque')}}"><i class="fa fa-angle-double-right"></i> Cadastrar Estoque</a></li>
-                                        <li><a href="{{route('listar_estoque')}}"><i class="fa fa-angle-double-right"></i> Listar Estoques</a></li>
+                                        
+                                        <li><a href="listar_estoque"><i class="fa fa-angle-double-right"></i> Listar Estoques</a></li>
                                     </ul>
                         </li>
                         <li class="treeview">
@@ -165,8 +148,8 @@
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="{{route('cadastrar_item')}}"><i class="fa fa-angle-double-right"></i> Cadastrar Item</a></li>
-                                    <li><a href="{{route('listar_item')}}"><i class="fa fa-angle-double-right"></i> Listar Itens</a></li>
+                                   
+                                    <li><a href="listar_item"><i class="fa fa-angle-double-right"></i> Listar Itens</a></li>
                                 </ul>
                     </li>
                     <li class="treeview">
@@ -176,8 +159,8 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="{{route('cadastrar_fornecedor')}}"><i class="fa fa-angle-double-right"></i> Cadastrar Fornecedor</a></li>
-                                <li><a href="{{route('listar_fornecedor')}}"><i class="fa fa-angle-double-right"></i> Listar Fornecedores</a></li>
+                                
+                                <li><a href="listar_fornecedor"><i class="fa fa-angle-double-right"></i> Listar Fornecedores</a></li>
                             </ul>
                 </li>
                 <li class="treeview">
@@ -187,29 +170,12 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="{{route('cadastrar_localidade')}}"><i class="fa fa-angle-double-right"></i> Cadastrar Localidade</a></li>
-                            <li><a href="{{route('listar_localidade')}}"><i class="fa fa-angle-double-right"></i> Listar Localidades</a></li>
+                           
+                            <li><a href="listar_localidade"><i class="fa fa-angle-double-right"></i> Listar Localidades</a></li>
                         </ul>
             </li>
                 </li>
-                <li class="">
-                        <a href="{{route('listar_item_saida')}}">
-                            <i class="fa fa-bar-chart-o"></i>
-                            <span>Saída</span>
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-                     
-            </li>
-                </li>
-                <li class="">
-                        <a href="{{route('listar_item_entrada')}}">
-                            <i class="fa fa-bar-chart-o"></i>
-                            <span>Entrada</span>
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-       
-            </li>
-                </li>
+
             <li class="treeview">
                     <a href="#">
                         <i class="fa fa-bar-chart-o"></i>
@@ -217,24 +183,11 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{route('cadastrar_solicitacao')}}"><i class="fa fa-angle-double-right"></i>Solicitar</a></li>
-                        <li><a href="{{route('listar_solicitacao')}}"><i class="fa fa-angle-double-right"></i> Listar Solicitações</a></li>
-                    </ul>
-        </li>
-            </li>
-            <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-bar-chart-o"></i>
-                        <span>Relatórios</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{route('relatorio_saida')}}"><i class="fa fa-angle-double-right"></i>Relatório Saídas</a></li>
                         
+                        <li><a href="listar_solicitacao"><i class="fa fa-angle-double-right"></i> Listar Solicitações</a></li>
                     </ul>
         </li>
             </li>
-
 
                 </section>
                 <!-- /.sidebar -->
@@ -292,7 +245,7 @@
         <div class="footer-copyright text-center py-3" style="margin-top: 360px;">
            <p>© 2019  Equipe TI - Camurujipe:</p> 
           <p></p><a href="http://192.168.0.111/zabbix/"> Zabbix</a></p>
-          <p></p><a href="http://187.44.148.149:83/"> GLPI</a></p>
+          <p></p><a href="http://192.168.0.111"> GLPI</a></p>
           <p></p><a href="http://camurujipe.milldesk.com"> Milldesk</a></p>
         </div>
         <!-- Copyright -->

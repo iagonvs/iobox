@@ -11,8 +11,11 @@ use App\Fornecedor;
 use App\Localidade;
 use App\Saida;
 use App\Usuario;
+use App\Admin;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\View;
+
+use PDF;
 
 
 use DB;
@@ -96,15 +99,20 @@ class CadastrarSaidaController extends Controller
         ->with(compact('item'));
     }
 
-    public function listar(){
+    public function listar(Request $request){
 
         $estoque = new Estoque();
         $saida = new Saida();
+
+        
+        $search = $request->get('search');
+
 
         $estoque = DB::table ('tbEstoque')
         ->join('tbItem', 'tbEstoque.idItem', '=', 'tbItem.idItem')
         ->join('tbFornecedor', 'tbEstoque.idFornecedor', '=', 'tbFornecedor.idFornecedor')
         ->select('idEstoque','quantidade_total','numero_nf','data_nf','data_garantia','tbItem.descricao_item', 'tbItem.idItem',  'tbFornecedor.razao_social', 'tbFornecedor.idFornecedor')
+        ->where('tbItem.descricao_item', 'LIKE', '%'.$search.'%')
         ->get();
 
         
@@ -121,6 +129,8 @@ class CadastrarSaidaController extends Controller
 
         ->with(compact('saida'))
 
+        ->with(compact('search'))
+
         ->with(compact('estoque'))
 
         ->with(compact('item'))
@@ -131,15 +141,48 @@ class CadastrarSaidaController extends Controller
         
     }
 
-    public function listar_entrada(){
+    public function imprimir_pdf(){
+
+        $item = new Item();
+        
+
+        $fornecedor = new Fornecedor();
+    
+        
+        $localidade = new Localidade();
+      
+
+        $estoque = new Estoque();
+
+        $saida = new Saida();
+        $saida = DB::table ('tbSaida')
+        ->join('tbEstoque', 'tbSaida.idEstoque', '=', 'tbEstoque.idEstoque')
+        ->join('tbLocalidade', 'tbSaida.idLocalidade', '=', 'tbLocalidade.idLocalidade')
+        ->join('tbItem', 'tbItem.idItem', '=', 'tbEstoque.idItem')
+        ->join('users', 'tbSaida.idUsuario', '=', 'users.id')
+        ->select('idSaida','quantidade_saida', 'data_saida','descricao_saida','tbLocalidade.localidade','tbEstoque.idEstoque','tbItem.descricao_item', 'users.name') 
+        ->orderBy('data_saida', 'DESC')
+        ->get();
+
+        $pdf = Pdf::loadView('relatorio_saida', compact('saida'));
+
+        return $pdf->setPaper('a4')->stream('Relatório de Saídas.pdf');
+
+    }
+
+
+    public function listar_entrada(Request $request){
 
         $estoque = new Estoque();
         $saida = new Saida();
+
+        $search = $request->get('search');
 
         $estoque = DB::table ('tbEstoque')
         ->join('tbItem', 'tbEstoque.idItem', '=', 'tbItem.idItem')
         ->join('tbFornecedor', 'tbEstoque.idFornecedor', '=', 'tbFornecedor.idFornecedor')
         ->select('idEstoque','quantidade_total','numero_nf','data_nf','data_garantia','tbItem.descricao_item', 'tbItem.idItem',  'tbFornecedor.razao_social', 'tbFornecedor.idFornecedor')
+        ->where('tbItem.descricao_item', 'LIKE', '%'.$search.'%')
         ->get();
 
         
@@ -157,6 +200,8 @@ class CadastrarSaidaController extends Controller
         ->with(compact('saida'))
 
         ->with(compact('estoque'))
+
+        ->with(compact('search'))
 
         ->with(compact('item'))
 
@@ -181,8 +226,9 @@ class CadastrarSaidaController extends Controller
 
         $editar = DB::table ('tbEstoque')
         ->join('tbItem', 'tbEstoque.idItem', '=', 'tbItem.idItem')
+        ->join('tbLocalidade', 'tbEstoque.idLocalidade', '=', 'tbLocalidade.idLocalidade')
         ->join('tbFornecedor', 'tbEstoque.idFornecedor', '=', 'tbFornecedor.idFornecedor')
-        ->select('idEstoque','quantidade_total','numero_nf','data_nf','data_garantia','tbItem.descricao_item', 'tbItem.idItem',  'tbFornecedor.razao_social', 'tbFornecedor.idFornecedor') 
+        ->select('idEstoque','quantidade_total','numero_nf','data_nf','data_garantia','tbItem.descricao_item', 'tbItem.idItem',  'tbFornecedor.razao_social', 'tbFornecedor.idFornecedor', 'tbLocalidade.localidade', 'tbLocalidade.setor','tbLocalidade.idLocalidade') 
         ->where('idEstoque', $id)
         ->first();
 
@@ -202,8 +248,6 @@ class CadastrarSaidaController extends Controller
         return view('cadastrar_saida')
 
         ->with(compact('editar'))
-
-        ->with(compact('estoque'))
 
         ->with(compact('fornecedor'))
 
@@ -237,6 +281,7 @@ class CadastrarSaidaController extends Controller
         $saida->idLocalidade = $request->input('idLocalidade') ;
         $saida->idEstoque = $request->input('idEstoque') ;
         $saida->descricao_saida = $request->input('descricao_saida');
+        $saida->idLocalidade = $request->input('idLocalidade');
         $saida->data_saida = now();
         $saida->idUsuario = $usuario = Auth::user()->id;
         $saida->save();
@@ -246,10 +291,10 @@ class CadastrarSaidaController extends Controller
             ->with(compact('editar'))
 
             ->with(compact('usuario'))
+
+            ->with(compact('localidade'))
     
             ->with(compact('saida'))
-    
-            ->with(compact('estoque'))
     
             ->with(compact('fornecedor'))
     

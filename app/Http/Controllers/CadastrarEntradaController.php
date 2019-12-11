@@ -53,8 +53,9 @@ class CadastrarEntradaController extends Controller
         //Consultando os dados com JOIN da tabela estoque
         $editar = DB::table ('tbEstoque')
         ->join('tbItem', 'tbEstoque.idItem', '=', 'tbItem.idItem')
+        ->join('tbLocalidade', 'tbEstoque.idLocalidade', '=', 'tbLocalidade.idLocalidade')
         ->join('tbFornecedor', 'tbEstoque.idFornecedor', '=', 'tbFornecedor.idFornecedor')
-        ->select('idEstoque','quantidade_total','numero_nf','data_nf','data_garantia','tbItem.descricao_item', 'tbItem.idItem',  'tbFornecedor.razao_social', 'tbFornecedor.idFornecedor') 
+        ->select('idEstoque','quantidade_total','numero_nf','data_nf','data_garantia','tbItem.descricao_item', 'tbItem.idItem',  'tbFornecedor.razao_social', 'tbFornecedor.idFornecedor','tbLocalidade.localidade','tbLocalidade.setor') 
         ->where('idEstoque', $id)
         ->first();
 
@@ -77,7 +78,7 @@ class CadastrarEntradaController extends Controller
 
         ->with(compact('editar'))
 
-        ->with(compact('estoque'))
+      
 
         ->with(compact('fornecedor'))
 
@@ -94,6 +95,7 @@ class CadastrarEntradaController extends Controller
 
         $editar = new Estoque();
         $editar = $editar::all();
+        
 
         $item = new Item();
         $fornecedor = new Fornecedor();
@@ -114,8 +116,8 @@ class CadastrarEntradaController extends Controller
         $entrada->data_entrada = now();
         $entrada->save();
 
-   
-        
+
+
 
 
         return redirect()->back()
@@ -123,8 +125,6 @@ class CadastrarEntradaController extends Controller
         ->with(compact('editar'))
 
         ->with(compact('entrada'))
-
-        ->with(compact('estoque'))
 
         ->with(compact('fornecedor'))
 

@@ -29,6 +29,26 @@
                 <h3 class="box-title">Estoque</h3>                                    
             </div><!-- /.box-header -->
             <div class="box-body table-responsive">
+                <div class="col-sm-6">
+                    <form action="{{ route('listar_estoque') }}" method="post">
+                        @csrf
+                        <label class="control-label">Pesquisar</label>
+        
+                        <input type="search" class="" name="search" value="{{ $search }}">
+        
+                        <button type="submit" class="btn btn-primary btn-sm" title="Pesquisar">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-lg-24">
+                    <a href="{{route('cadastrar_estoque')}}">
+                    <button type="submit" class="btn btn-primary">Cadastrar Estoque</button>
+                  </a>
+                    </div>
+             
+                <br>
+                <br>
         <table id="example1" class="table table-bordered table-striped">
     <thead>
       <tr>
@@ -56,7 +76,7 @@
         <td>{{$listar->data_garantia}}</td>
         <td>{{$listar->descricao_item}}</td>
         <td>{{$listar->razao_social}}</td>
-        <td>{{$listar->localidade}} / {{$listar->setor}}</td>
+        <td>{{$listar->localidade}}</td>
         <td><a href="cadastrar_estoque/{{$listar->idEstoque}}/edit">Editar</a> / 
         <a href="cadastrar_saida/{{$listar->idEstoque}}/edit">Saida</a> / 
         <a href="cadastrar_entrada/{{$listar->idEstoque}}/edit">Entrada</a></td>

@@ -15,7 +15,7 @@
                                  <p>Total de Itens</p>
                         </div>
                     <div class="icon">
-                           <a href="cadastrar" class="ion ion-bag bg-green"> <i ></i></a>
+                           <a href="" class="ion ion-bag bg-green"> <i ></i></a>
 </div>
 
                             <a href="listar_item" class="small-box-footer">Listar<i class="fa fa-arrow-circle-right"></i></a>
@@ -31,7 +31,7 @@
                                          <p>Total de Fornecedores</p>
                                 </div>
                             <div class="icon">
-                                   <a href="cadastrar" class="ion ion-bag bg-black"> <i ></i></a>
+                                   <a href="" class="ion ion-bag bg-black"> <i ></i></a>
         </div>
         
                                     <a href="listar_fornecedor" class="small-box-footer">Listar<i class="fa fa-arrow-circle-right"></i></a>
@@ -46,7 +46,7 @@
                                  <p>Total de Localidades</p>
                         </div>
                     <div class="icon">
-                           <a href="cadastrar" class="ion ion-bag bg-green"> <i ></i></a>
+                           <a href="" class="ion ion-bag bg-green"> <i ></i></a>
 </div>
 
                             <a href="listar_localidade" class="small-box-footer">Listar<i class="fa fa-arrow-circle-right"></i></a>
@@ -56,15 +56,15 @@
                 <div class="small-box bg-black">
                         <div class="inner">
                                 <h3>
-                                        {{$count_estoque}}
+                                        {{$count_entrada}}
                                 </h3>
                                  <p>Total de Entradas</p>
                         </div>
                     <div class="icon">
-                           <a href="cadastrar" class="ion ion-bag bg-black"> <i ></i></a>
+                           <a href="" class="ion ion-bag bg-black"> <i ></i></a>
 </div>
 
-                            <a href="listar_estoque" class="small-box-footer">Listar<i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="listar_item_entrada" class="small-box-footer">Listar<i class="fa fa-arrow-circle-right"></i></a>
                 </div>
 </div>
 <br>
@@ -87,6 +87,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Data Entrada</th>
                     <th scope="col">Quantidade Entrada</th>
+                    <th scope="col">Localidade</th>
                     <th scope="col">Item</th>
                   </tr>
                 </thead>
@@ -96,6 +97,7 @@
                     <th scope="row">{{$listar->idEstoque}}</th>
                     <td>{{$listar->data_entrada}}</td>
                     <td>{{$listar->quantidade_entrada}}</td>
+                    <td>{{$listar->localidade}}</td>
                     <td>{{$listar->descricao_item}}</td>         
                   </tr>
                 </tbody>

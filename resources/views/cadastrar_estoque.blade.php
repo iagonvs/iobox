@@ -51,7 +51,7 @@
         <select name='idLocalidade' class="form-control form-control-lg">
                 
                 @foreach ($localidade as $listar)
-              <option value='{{$listar->idLocalidade}}'>{{$listar->localidade}} / {{$listar->setor}}</option>
+              <option value='{{$listar->idLocalidade}}'>{{$listar->localidade}}</option>
               @endforeach
         </select >
         

@@ -29,17 +29,33 @@
                               </div>
 
                       <select name='idItem' class="form-control form-control-lg">
+                          <option>{{$editar->descricao_item}}</option>
                             @foreach ($item as $listar)
                           <option value='{{$listar->idItem}}'>{{$listar->descricao_item}}</option>
                           @endforeach
                     </select >
+                    <small>Por favor selecione o item</small>
                     <br>
+                    <br> 
                     <select name='idFornecedor' class="form-control form-control-lg">
+                        <option>{{$editar->razao_social}}</option>
                             @foreach ($fornecedor as $listar)
                           <option value='{{$listar->idFornecedor}}'>{{$listar->razao_social}}</option>
                           @endforeach
                     </select >
+                    <small>Por favor selecione o fornecedor</small>
                     <br>
+                    <br>  
+                    <select name='idLocalidade' class="form-control form-control-lg">
+                        <option>{{$editar->localidade}} / {{$editar->setor}}</option>
+                      @foreach ($localidade as $listar)
+                    <option value='{{$listar->idLocalidade}}'>{{$listar->localidade}} / {{$listar->setor}}</option>
+                    @endforeach
+                   </select >
+                   <small>Por favor selecione a localidade</small>
+                    <br>
+                    <br>
+                    
                     <button type="submit" class="btn btn-primary">Atualizar</button>
 
                    <a href="{{route('listar_estoque')}}"><button type="button" class="btn btn-info">Voltar</button></a> 

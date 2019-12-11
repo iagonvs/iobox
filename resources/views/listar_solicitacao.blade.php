@@ -23,46 +23,43 @@
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
 
-<div class="box">
-    <div class="box-header">
-        <h3 class="box-title">Itens</h3>                                    
-    </div><!-- /.box-header -->
-    <div class="box-body table-responsive">
-        <div class="col-sm-6">
-            <form action="{{ route('listar_item') }}" method="post">
-                @csrf
-                <label class="control-label">Pesquisar</label>
 
-                <input type="search" class="" name="search" value="{{ $search }}">
-
-                <button type="submit" class="btn btn-primary btn-sm" title="Pesquisar">
-                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                </button>
-            </form>
-        </div>
-        <div class="col-lg-24">
-        <a href="{{route('cadastrar_item')}}">
-        <button type="submit" class="btn btn-primary">Cadastrar Item</button>
-      </a>
-        </div>
-        <br>
-        <br>
-<table id="example1" class="table table-bordered table-striped">
-    <thead class="thead-dark">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Solicitações</h3>                                    
+            </div><!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <div class="col-lg-24">
+                    <a href="{{route('cadastrar_solicitacao')}}">
+                    <button type="submit" class="btn btn-primary">Cadastrar Solicitação</button>
+                  </a>
+                    </div>
+        <table id="example1" class="table table-bordered table-striped">
+    <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Descrição do item</th>
+        <th scope="col">Data Solicitação</th>
+        <th scope="col">Quantidade Solicitada</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Localidade</th>
+        <th scope="col">Solicitante</th>
+        <th scope="col">Status</th>
         <th scope="col">Ações</th>
         <th scope="col">Deletar</th>
       </tr>
     </thead>
-    @foreach ($item as $listar)
+    @foreach ($comprar as $listar)
     <tbody>
       <tr>
-        <th scope="row">{{$listar->idItem}}</th>
-        <td>{{$listar->descricao_item}}</td>
-        <td><a href="{{route('cadastrar_item.edit', $listar->idItem)}}">Editar</a></td>
-        <form action="{{route('cadastrar_item.destroy', $listar->idItem)}}" method="POST">
+        <th scope="row">{{$listar->idSolicitacaoCompra}}</th>
+        <td>{{$listar->data_solicitacao}}</td>
+        <td>{{$listar->quantidade_solicitacao}}</td>
+        <td>{{$listar->descricao_solicitacao}}</td>
+        <td>{{$listar->localidade}}</td>
+        <td>{{$listar->name}}</td>
+        <td>{{$listar->solicitacao_status}}</td>
+        <td><a href="cadastrar_solicitacao/{{$listar->idSolicitacaoCompra}}/edit">Atualizar</a>
+        <form action="{{route('cadastrar_solicitacao.destroy', $listar->idSolicitacaoCompra)}}" method="POST">
           @csrf
           @method('DELETE')
         <td><button class="fa fa-trash-o" aria-hidden="true" type="submit"></button></td>
@@ -72,8 +69,17 @@
     </tbody>
     @endforeach
 
-    {{ $item->appends(['search' => $search])->links() }}
-
+@if(session('saidaok'))
+    <div class="alert alert-success">
+        <p>{{session('sucess')}}</p>
+    </div>
+@endif
+@if(session('errors'))
+    <div class="alert alert-success">
+        <p>{{session('errors')}}</p>
+    </div>
+@endif
+  
   </table>
 </div>
 </div>
@@ -99,4 +105,7 @@
       });
   });
 </script>
+
+
+
 @endsection

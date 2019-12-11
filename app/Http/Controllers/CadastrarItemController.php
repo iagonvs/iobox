@@ -17,6 +17,10 @@ use DB;
 
 class CadastrarItemController extends Controller
 {
+    public function __construct()
+   {
+
+     }
 
     public function main(){
 
@@ -25,10 +29,12 @@ class CadastrarItemController extends Controller
         $count_Localidade = Localidade::count(); 
         $count_estoque = Estoque::count(); 
 
+        $count_entrada = Entrada::count(); 
+
         $saida = new Saida();
         $saida = DB::table ('tbSaida')
         ->join('tbEstoque', 'tbSaida.idEstoque', '=', 'tbEstoque.idEstoque')
-        ->join('tbLocalidade', 'tbLocalidade.idLocalidade', '=', 'tbLocalidade.idLocalidade')
+        ->join('tbLocalidade', 'tbSaida.idLocalidade', '=', 'tbLocalidade.idLocalidade')
         ->join('tbItem', 'tbItem.idItem', '=', 'tbEstoque.idItem')
         ->join('users', 'tbSaida.idUsuario', '=', 'users.id')
         ->select('idSaida','quantidade_saida', 'data_saida','descricao_saida','tbLocalidade.localidade','tbEstoque.idEstoque','tbItem.descricao_item', 'users.name') 
@@ -38,9 +44,9 @@ class CadastrarItemController extends Controller
         $entrada = new Entrada();
         $entrada = DB::table ('tbEntrada')
         ->join('tbEstoque', 'tbEntrada.idEstoque', '=', 'tbEstoque.idEstoque')
-        ->join('tbLocalidade', 'tbLocalidade.idLocalidade', '=', 'tbLocalidade.idLocalidade')
+        ->join('tbLocalidade', 'tbEntrada.idLocalidade', '=', 'tbLocalidade.idLocalidade')
         ->join('tbItem', 'tbItem.idItem', '=', 'tbEstoque.idItem')
-        ->select('idEntrada','quantidade_entrada', 'tbEntrada.data_entrada','tbLocalidade.localidade','tbEstoque.idEstoque','tbItem.descricao_item', 'tbEstoque.quantidade_total') 
+        ->select('idEntrada','quantidade_entrada', 'tbEntrada.data_entrada','tbEstoque.idEstoque','tbLocalidade.localidade','tbItem.descricao_item', 'tbEstoque.quantidade_total') 
         ->orderBy('data_entrada', 'DESC')
         ->Paginate(5);
 
@@ -48,15 +54,14 @@ class CadastrarItemController extends Controller
         $item = new Item();
         $item = $item::all();
 
-        
-        
-
         $fornecedor = new Fornecedor();
         $fornecedor = $fornecedor::all();
 
         return view('home')
 
         ->with(compact('count'))
+
+        ->with(compact('count_entrada'))
 
         ->with(compact('count_fornecedor'))
 

@@ -78,13 +78,15 @@ class CadastrarLocalidadeController extends Controller
         //
     }
 
-    public function listar(){
+    public function listar(Request $request){
+
+        $search = $request->get('search');
 
         $localidade = new Localidade();
 
-        $localidade = DB::table ('tbLocalidade')->Paginate(10);
+        $localidade = Localidade::where('localidade', 'LIKE', '%'.$search.'%')->Paginate(10);
 
-        return view('listar_localidade', compact('localidade'));
+        return view('listar_localidade', compact('localidade', 'search'));
     }
 
 

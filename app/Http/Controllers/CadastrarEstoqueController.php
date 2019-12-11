@@ -95,19 +95,12 @@ class CadastrarEstoqueController extends Controller
         //
     }
 
-    public function listar(){
+    public function listar(Request $request){
 
         $estoque = new Estoque();
 
-        $estoque = DB::table ('tbEstoque')
-        ->join('tbItem', 'tbEstoque.idItem', '=', 'tbItem.idItem')
-        ->join('tbFornecedor', 'tbEstoque.idFornecedor', '=', 'tbFornecedor.idFornecedor')
-        ->join('tbLocalidade', 'tbEstoque.idLocalidade', '=', 'tbEstoque.idLocalidade')
-        ->select('idEstoque','quantidade_total','data_entrada','numero_nf','data_nf','data_garantia','tbItem.descricao_item', 'tbFornecedor.razao_social', 'tbLocalidade.localidade', 'tbLocalidade.setor') 
-        ->orderBy('data_entrada', 'DESC')
-        ->get();
-
-        
+        $search = $request->get('search');
+                
         $item = new Item();
         $item = $item::all();
 
@@ -116,7 +109,15 @@ class CadastrarEstoqueController extends Controller
 
         $localidade = new Localidade();
         $localidade = $localidade::all();
-        
+
+        $estoque = DB::table ('tbEstoque')
+        ->join('tbItem', 'tbEstoque.idItem', '=', 'tbItem.idItem')
+        ->join('tbFornecedor', 'tbEstoque.idFornecedor', '=', 'tbFornecedor.idFornecedor')
+        ->join('tbLocalidade', 'tbEstoque.idLocalidade', '=', 'tbLocalidade.idLocalidade')
+        ->select('idEstoque','quantidade_total','data_entrada','numero_nf','data_nf','data_garantia','tbItem.descricao_item', 'tbFornecedor.razao_social', 'tbLocalidade.localidade', 'tbLocalidade.setor') 
+        ->where('tbItem.descricao_item', 'LIKE', '%'.$search.'%')
+        ->Paginate(10);
+
 
         return view('listar_estoque')
 
@@ -125,6 +126,8 @@ class CadastrarEstoqueController extends Controller
         ->with(compact('localidade'))
 
         ->with(compact('item'))
+
+        ->with(compact('search'))
 
         ->with(compact('fornecedor'));
         
@@ -138,7 +141,8 @@ class CadastrarEstoqueController extends Controller
         $editar = DB::table ('tbEstoque')
         ->join('tbItem', 'tbEstoque.idItem', '=', 'tbItem.idItem')
         ->join('tbFornecedor', 'tbEstoque.idFornecedor', '=', 'tbFornecedor.idFornecedor')
-        ->select('idEstoque','quantidade_total','data_entrada','numero_nf','data_nf','data_garantia','tbItem.descricao_item', 'tbItem.idItem',  'tbFornecedor.razao_social', 'tbFornecedor.idFornecedor') 
+        ->join('tbLocalidade', 'tbEstoque.idLocalidade', '=', 'tbLocalidade.idLocalidade')
+        ->select('idEstoque','quantidade_total','data_entrada','numero_nf','data_nf','data_garantia','tbItem.descricao_item', 'tbItem.idItem',  'tbFornecedor.razao_social', 'tbFornecedor.idFornecedor', 'tbLocalidade.localidade', 'tbLocalidade.setor') 
         ->where('idEstoque', $id)
         ->first();
 
@@ -177,7 +181,8 @@ class CadastrarEstoqueController extends Controller
         'data_nf' =>$request->input('data_nf'),
         'data_garantia' =>$request->input('data_garantia'),
         'idItem' =>$request->input('idItem'),
-        'idFornecedor' =>$request->input('idFornecedor')]
+        'idFornecedor' =>$request->input('idFornecedor'),
+        'idLocalidade' =>$request->input('idLocalidade')]
         );
        
             
@@ -193,12 +198,12 @@ class CadastrarEstoqueController extends Controller
         $estoque = new Estoque();
         
 
-        $deletedRows =  $item::where('idEstoque', $id)->delete();
+        $deletedRows =  $estoque::where('idEstoque', $id)->delete();
         
         
 
-        if(isset($item)){
-            return redirect()->route('editar_estoque', compact('estoque'));
+        if(isset($estoque)){
+            return redirect()->route('home', compact('estoque'));
         }
     }
 }

@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this
+    // }
 
     /**
      * Show the application dashboard.
@@ -19,6 +19,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return redirect()->route('home');
+        return view('regular');
     }
+    // public function main()
+    // {
+    //     return view('auth.login');
+    // }
 }

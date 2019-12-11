@@ -18,10 +18,7 @@ class CadastrarFornecedorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function main(){
 
-      
-    }
     public function index()
     {
         $fornecedor = new Fornecedor();
@@ -86,17 +83,21 @@ class CadastrarFornecedorController extends Controller
         //
     }
 
-    public function listar(){
+    public function listar(Request $request){
+
+  
 
         $fornecedor = new Fornecedor();
 
-        $fornecedor = DB::table ('tbFornecedor')->Paginate(10);
+        $search = $request->get('search');
+
+        $fornecedor = Fornecedor::where('razao_social', 'LIKE', '%'.$search.'%')->Paginate(10);
 
     
 
         
 
-        return view('listar_fornecedor', compact('fornecedor'));
+        return view('listar_fornecedor', compact('fornecedor', 'search'));
     }
 
     /**

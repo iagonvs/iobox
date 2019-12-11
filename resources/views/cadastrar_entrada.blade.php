@@ -39,16 +39,15 @@
 
         <label for="quantidade">Localidade</label>
         <select name='idLocalidade' class="form-control form-control-lg">
-                
+        <option></option>
                 @foreach ($localidade as $listar)
               <option value='{{$listar->idLocalidade}}'>{{$listar->localidade}} / {{$listar->setor}}</option>
               @endforeach
         </select >
+        <small>Por favor selecione a localidade</small>
         <br>
-     
         <br>
-        
- <br>
+
         <button type="submit" class="btn btn-primary">Cadastrar</button>
 
         <a href="{{route('listar_item_entrada')}}"><button type="button" class="btn btn-info">Voltar</button></a> 

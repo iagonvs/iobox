@@ -41,11 +41,13 @@
 
         <label for="quantidade">Localidade</label>
         <select name='idLocalidade' class="form-control form-control-lg">
-                
+                <option></option>
                 @foreach ($localidade as $listar)
               <option value='{{$listar->idLocalidade}}'>{{$listar->localidade}} / {{$listar->setor}}</option>
               @endforeach
         </select >
+        <small>Por favor selecione a localidade</small>
+        <br>
         <br>
 
         <div class="form-group">

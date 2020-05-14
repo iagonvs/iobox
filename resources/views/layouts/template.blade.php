@@ -2,11 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>BOX I.O
+        <title>BOX I.O. - Weipar
             
         </title>
         <script type="text/javascript" src="nicEdit-latest.js"></script>
         <script type="text/javascript">
+        
+
         //<![CDATA[
         bkLib.onDomLoaded(function() {
             new nicEditor({maxHeight : 200}).panelInstance('descricao_solicitacao');
@@ -14,7 +16,8 @@
         });
         //]]>
         </script>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+        <script src="http://harvesthq.github.io/chosen/chosen.jquery.js"></script>
         <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
         <link rel="icon" href="{{('/img/boxio.png')}}" />
         <link rel="stylesheet" href="{{asset('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous')}}">
@@ -39,12 +42,22 @@
         <!-- Theme style -->
         <link href="{{asset('css/AdminLTE.css')}}" rel="stylesheet" type="text/css" />
 
+        <link href="{{asset('http://harvesthq.github.io/chosen/chosen.css')}}" rel="stylesheet"/>
+
+        <link href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css')}}" rel="stylesheet"/>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.min.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
+
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
+
+
     </head>
     
     <body class="skin-blue" >
@@ -80,13 +93,15 @@
                          @csrf
                      </form>
                     </li>
+                    @can('isAdmin')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Registrar') }}</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <span> {{ Auth::user()->name }}<i class="caret"></i></span>
+                        @endcan
+                        <li class="">
+                            <a href="/" class="dropdown-toggle" data-toggle="">
+                                <i class=""></i>
+                                <span> {{ Auth::user()->name }}<i class=""></i></span>
                                 
                             </a>
 
@@ -147,73 +162,35 @@
                                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                                     </a>
                                 </li> 
-                            <li class="treeview">
+@if(Gate::check('isAdmin') || Gate::check('isRegular'))
+                                <li class="treeview">
                                     <a href="#">
                                         <i class="fa fa-bar-chart-o"></i>
-                                        <span>Estoque</span>
+                                        <span>Estoque TI</span>
                                         <i class="fa fa-angle-left pull-right"></i>
                                     </a>
                                     <ul class="treeview-menu">
-                                        <li><a href="{{route('cadastrar_estoque')}}"><i class="fa fa-angle-double-right"></i> Cadastrar Estoque</a></li>
-                                        <li><a href="{{route('listar_estoque')}}"><i class="fa fa-angle-double-right"></i> Listar Estoques</a></li>
+                                        @can('isAdmin')
+                                        <li><a href="{{route('listar_item')}}"><i class="fa fa-angle-double-right"></i>Item</a></li>
+                                        <li><a href="{{route('listar_fornecedor')}}"><i class="fa fa-angle-double-right"></i>Fornecedor</a></li>
+                                        <li><a href="{{route('listar_localidade')}}"><i class="fa fa-angle-double-right"></i>Localidade</a></li>
+                                        <li><a href="{{route('listar_estoque')}}"><i class="fa fa-angle-double-right"></i>Estoque</a></li>
+                                        <li><a href="{{route('listar_item_transicao')}}"><i class="fa fa-angle-double-right"></i>Transição</a></li>
+                                        @endcan
+                                        <li><a href="{{route('listar_item_saida')}}"><i class="fa fa-angle-double-right"></i>Saída</a></li>
+                                        <li><a href="{{route('listar_item_entrada')}}"><i class="fa fa-angle-double-right"></i>Entrada</a></li>
+                                       
                                     </ul>
                         </li>
-                        <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-bar-chart-o"></i>
-                                    <span>Item</span>
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="{{route('cadastrar_item')}}"><i class="fa fa-angle-double-right"></i> Cadastrar Item</a></li>
-                                    <li><a href="{{route('listar_item')}}"><i class="fa fa-angle-double-right"></i> Listar Itens</a></li>
-                                </ul>
-                    </li>
-                    <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-bar-chart-o"></i>
-                                <span>Fornecedor</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="{{route('cadastrar_fornecedor')}}"><i class="fa fa-angle-double-right"></i> Cadastrar Fornecedor</a></li>
-                                <li><a href="{{route('listar_fornecedor')}}"><i class="fa fa-angle-double-right"></i> Listar Fornecedores</a></li>
-                            </ul>
-                </li>
-                <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-bar-chart-o"></i>
-                            <span>Localidade</span>
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="{{route('cadastrar_localidade')}}"><i class="fa fa-angle-double-right"></i> Cadastrar Localidade</a></li>
-                            <li><a href="{{route('listar_localidade')}}"><i class="fa fa-angle-double-right"></i> Listar Localidades</a></li>
-                        </ul>
+                            </li>
             </li>
-                </li>
-                <li class="">
-                        <a href="{{route('listar_item_saida')}}">
-                            <i class="fa fa-bar-chart-o"></i>
-                            <span>Saída</span>
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-                     
-            </li>
-                </li>
-                <li class="">
-                        <a href="{{route('listar_item_entrada')}}">
-                            <i class="fa fa-bar-chart-o"></i>
-                            <span>Entrada</span>
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-       
-            </li>
-                </li>
+@endif
+
+            @if(Gate::check('isAdmin') || Gate::check('isRegular'))
             <li class="treeview">
                     <a href="#">
                         <i class="fa fa-bar-chart-o"></i>
-                        <span>Solicitação de Compra</span>
+                        <span>Solicitação de Materiais</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
@@ -222,6 +199,55 @@
                     </ul>
         </li>
             </li>
+            @endif
+            @can('isAdmin')
+            <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <span>WIFI - BUS</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{route('listar_tipo_onibus')}}"><i class="fa fa-angle-double-right"></i>Tipo de Onibus</a></li>
+                        <li><a href="{{route('listar_empresa')}}"><i class="fa fa-angle-double-right"></i>Empresas</a></li>
+                        <li><a href="{{route('listar_linha')}}"><i class="fa fa-angle-double-right"></i>Linhas - CHIPs</a></li>
+                        <li><a href="{{route('listar_onibus')}}"><i class="fa fa-angle-double-right"></i>Ônibus</a></li>
+                        <li><a href="{{route('listar_roteador')}}"><i class="fa fa-angle-double-right"></i>Roteadores</a></li>
+                        <li><a href="{{route('listar_controle_wifi')}}"><i class="fa fa-angle-double-right"></i>Controle (BUS - LINHA)</a></li>
+                    </ul>
+        </li>
+            </li>
+            @endcan 
+
+            @can('isAdmin')
+            <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <span>Inventario</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{route('listar_agencia')}}"><i class="fa fa-angle-double-right"></i>Agencia</a></li>
+                        <li><a href="{{route('listar_inventario')}}"><i class="fa fa-angle-double-right"></i>Inventario</a></li>
+                        
+                    </ul>
+        </li>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <span>Manutenção</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('listar_modelo_impressora')}}"><i class="fa fa-angle-double-right"></i>Impressoras</a></li>
+                    <li><a href="{{route('listar_setor_agencia')}}"><i class="fa fa-angle-double-right"></i>Agências/Setores</a></li>
+                    <li><a href="{{route('listar_controle_impressora')}}"><i class="fa fa-angle-double-right"></i>Controle</a></li>
+                </ul>
+    </li>
+        </li>
+            @endcan
+            @can('isAdmin')
             <li class="treeview">
                     <a href="#">
                         <i class="fa fa-bar-chart-o"></i>
@@ -230,11 +256,15 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{route('relatorio_saida')}}"><i class="fa fa-angle-double-right"></i>Relatório Saídas</a></li>
+                        <li><a href="{{route('relatorio_entrada')}}"><i class="fa fa-angle-double-right"></i>Relatório Entradas</a></li>
+                        <li><a href="{{route('relatorio_wifi')}}"><i class="fa fa-angle-double-right"></i>Relatório Wifi-Bus</a></li>
                         
                     </ul>
         </li>
             </li>
-
+            @endcan
+            
+          
 
                 </section>
                 <!-- /.sidebar -->
@@ -250,7 +280,7 @@
 
         <!-- add new calendar event modal -->
 
-
+        <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js')}}"></script>
         <!-- jQuery 2.0.2 -->
         <script src="{{asset('http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js')}}"></script>
         <!-- jQuery UI 1.10.3 -->
@@ -291,9 +321,8 @@
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3" style="margin-top: 360px;">
            <p>© 2019  Equipe TI - Camurujipe:</p> 
-          <p></p><a href="http://192.168.0.111/zabbix/"> Zabbix</a></p>
-          <p></p><a href="http://187.44.148.149:83/"> GLPI</a></p>
-          <p></p><a href="http://camurujipe.milldesk.com"> Milldesk</a></p>
+          <p></p><a target="_blank" href="http://187.44.148.149:83/zabbix/"> Zabbix</a></p>
+          <p></p><a target="_blank" href="http://187.44.148.149:83/"> GLPI</a></p>
         </div>
         <!-- Copyright -->
       

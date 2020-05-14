@@ -17,16 +17,13 @@ use Illuminate\Support\Facades\Auth;
 use DB;
 
 
-
+//CONTROLLER COM TODOS OS MÉTODOS ENVOLVENDO A SOLICITAÇÃO DE COMPRA
 class CadastrarSolicitacaoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
-    {
+    {   
+        //ACESSO PRINCIPAL AO CADASTRO DE SOLICITAÇÃO DE COMPRA, TRAZENDO DADOS DA LOCALIDADE, STATUS E USUÁRIO
         $compra = new SolicitacaoCompra();
         $compra = $compra::all();
 
@@ -50,22 +47,7 @@ class CadastrarSolicitacaoController extends Controller
         ->with(compact('user'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $compra = new SolicitacaoCompra();
@@ -74,7 +56,7 @@ class CadastrarSolicitacaoController extends Controller
         $user = new Usuario();
 
 
-
+        //REGISTRANDO A SOLICITAÇÃO DA COMPRA 
         $compra->descricao_solicitacao = $request->input('descricao_solicitacao');
         $compra->quantidade_solicitacao = $request->input('quantidade_solicitacao');
         $compra->data_solicitacao = now();
@@ -98,17 +80,40 @@ class CadastrarSolicitacaoController extends Controller
 
     public function listar(){
 
-        $comprar = new SolicitacaoCompra();
-        $localidade = new Localidade();
-        $status = new SolicitacaoStatus();
-        $user = new Usuario();
+       
 
-        $comprar = DB::table ('tbSolicitacao_Compra')
-        ->join('users', 'tbSolicitacao_Compra.idUsuario', '=', 'users.id')
-        ->join('tbLocalidade', 'tbSolicitacao_Compra.idLocalidade', '=', 'tbLocalidade.idLocalidade')
-        ->join('tbSolicitacao_Status', 'tbSolicitacao_Compra.idSolicitacaoStatus', '=', 'tbSolicitacao_Status.idSolicitacaoStatus')
-        ->select('idSolicitacaoCompra','descricao_solicitacao', 'quantidade_solicitacao', 'data_solicitacao','users.name','tbLocalidade.localidade','tbSolicitacao_Status.solicitacao_status')
-        ->get();
+        if(!\Gate::allows('isAdmin')){
+            $comprar = new SolicitacaoCompra();
+            $localidade = new Localidade();
+            $status = new SolicitacaoStatus();
+            $user = new Usuario();
+            
+            //LISTANDP TODAS AS SOLICITAÇÕES
+            $comprar = DB::table ('tbSolicitacao_Compra')
+            ->join('users', 'tbSolicitacao_Compra.idUsuario', '=', 'users.id')
+            ->join('tbLocalidade', 'tbSolicitacao_Compra.idLocalidade', '=', 'tbLocalidade.idLocalidade')
+            ->join('tbSolicitacao_Status', 'tbSolicitacao_Compra.idSolicitacaoStatus', '=', 'tbSolicitacao_Status.idSolicitacaoStatus')
+            ->select('idSolicitacaoCompra','descricao_solicitacao', 'quantidade_solicitacao', 'data_solicitacao','users.name','tbLocalidade.localidade','tbSolicitacao_Status.solicitacao_status')
+            ->where('users.id', '=',  $usuario = Auth::user()->id)
+            ->get();
+    
+        }else{
+            $comprar = new SolicitacaoCompra();
+            $localidade = new Localidade();
+            $status = new SolicitacaoStatus();
+            $user = new Usuario();
+    
+            //LISTANDP TODAS AS SOLICITAÇÕES
+            $comprar = DB::table ('tbSolicitacao_Compra')
+            ->join('users', 'tbSolicitacao_Compra.idUsuario', '=', 'users.id')
+            ->join('tbLocalidade', 'tbSolicitacao_Compra.idLocalidade', '=', 'tbLocalidade.idLocalidade')
+            ->join('tbSolicitacao_Status', 'tbSolicitacao_Compra.idSolicitacaoStatus', '=', 'tbSolicitacao_Status.idSolicitacaoStatus')
+            ->select('idSolicitacaoCompra','descricao_solicitacao', 'quantidade_solicitacao', 'data_solicitacao','users.name','tbLocalidade.localidade','tbSolicitacao_Status.solicitacao_status')
+            ->get();
+
+        }
+
+  
 
 
         return view('listar_solicitacao')
@@ -123,23 +128,7 @@ class CadastrarSolicitacaoController extends Controller
         
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $comprar = new SolicitacaoCompra();
@@ -151,12 +140,13 @@ class CadastrarSolicitacaoController extends Controller
         $user = $user::all();
 
   
-
+        //CONSULTANDO TODAS AS INFORMAÇÕES DA SOLICITAÇÃO QUE FOI SELECIONADA E REDIRECIONANDO PRA TELA DE EDIÇÃO
         $comprar = DB::table ('tbSolicitacao_Compra')
         ->join('users', 'tbSolicitacao_Compra.idUsuario', '=', 'users.id')
         ->join('tbLocalidade', 'tbSolicitacao_Compra.idLocalidade', '=', 'tbLocalidade.idLocalidade')
         ->join('tbSolicitacao_Status', 'tbSolicitacao_Compra.idSolicitacaoStatus', '=', 'tbSolicitacao_Status.idSolicitacaoStatus')
         ->select('idSolicitacaoCompra','descricao_solicitacao', 'quantidade_solicitacao', 'data_solicitacao','users.name', 'users.id','tbLocalidade.localidade', 'tbLocalidade.idLocalidade','tbSolicitacao_Status.solicitacao_status', 'tbSolicitacao_Status.idSolicitacaoStatus')
+        ->where('idSolicitacaoCompra', $id)
         ->first();
 
 
@@ -181,7 +171,7 @@ class CadastrarSolicitacaoController extends Controller
         $user = new Usuario();
         $user = $user::all();
 
-
+        //ATUALIZANDO A SOLICITAÇÃO
         $comprar = new SolicitacaoCompra();
         $comprar = DB::table ('tbSolicitacao_Compra')
         ->where('idSolicitacaoCompra', $id)
@@ -211,14 +201,12 @@ class CadastrarSolicitacaoController extends Controller
     {
         $comprar = new SolicitacaoCompra();
         
-
-        $deletedRows =  SolicitacaoCompra::where('idSolicitacaoStatus', $id)->delete();
+        //DELETANDO A SOLICITAÇÃO SELECIONADA
+        $deletedRows =  SolicitacaoCompra::where('idSolicitacaoCompra', $id)->delete();
         
-        
-
-        if(isset($comprar)){
-            return redirect()->route('home', compact('comprar'));
-        }
+    
+            return redirect()->route('listar_solicitacao', compact('comprar'));
+       
     }
     }
 

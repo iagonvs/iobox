@@ -66,17 +66,17 @@
         <td>{{$listar->localidade}}</td>
         <td>{{$listar->setor}}</td>
         <td><a href="cadastrar_localidade/{{$listar->idLocalidade}}/edit">Editar</a></td>
-        <form action="{{route('cadastrar_localidade.destroy', $listar->idLocalidade)}}" method="POST">
+        <form onclick="return confirm('Deseja excluir?');" action="{{route('cadastrar_localidade.destroy', $listar->idLocalidade)}}" method="POST">
           @csrf
           @method('DELETE')
-        <td><button class="fa fa-trash-o" aria-hidden="true" type="submit"></button></td>
+        <td><button onclick="return confirm('Deseja excluir?');" class="fa fa-trash-o" aria-hidden="true" type="submit"></button></td>
         </form>
 
       </tr>
     </tbody>
     @endforeach
 
-    {{ $localidade->links() }}
+    {{ $localidade->appends(['search' => $search])->links() }}
   </table>
 </div>
 </div>

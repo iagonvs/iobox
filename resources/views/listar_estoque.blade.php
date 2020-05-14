@@ -32,12 +32,22 @@
                 <div class="col-sm-6">
                     <form action="{{ route('listar_estoque') }}" method="post">
                         @csrf
-                        <label class="control-label">Pesquisar</label>
+                        <label class="control-label">Pesquisar Item</label>
         
-                        <input type="search" class="" name="search" value="{{ $search }}">
+                        <input type="search" class="" name="search" value="{{ $search }}" placeholder="Nome do Item">
         
                         <button type="submit" class="btn btn-primary btn-sm" title="Pesquisar">
-                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                          
+                        </button>
+
+                        <label class="control-label">Localidade</label>
+        
+                        <input type="search" class="" name="search_localidade" value="{{ $search_localidade }}" placeholder="Localidade">
+        
+                        <button type="submit" class="btn btn-primary btn-sm" title="Pesquisar">
+                          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                          
                         </button>
                     </form>
                 </div>
@@ -53,7 +63,7 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Data Entrada</th>
+        <th scope="col">Data Estoque</th>
         <th scope="col">Quantidade Total</th>
         <th scope="col">Número da NF</th>
         <th scope="col">Data da NF</th>
@@ -77,13 +87,14 @@
         <td>{{$listar->descricao_item}}</td>
         <td>{{$listar->razao_social}}</td>
         <td>{{$listar->localidade}}</td>
-        <td><a href="cadastrar_estoque/{{$listar->idEstoque}}/edit">Editar</a> / 
+        <td><a href="cadastrar_transicao/{{$listar->idEstoque}}/edit">Transição</a> / 
+          <a href="cadastrar_estoque/{{$listar->idEstoque}}/edit">Editar</a> / 
         <a href="cadastrar_saida/{{$listar->idEstoque}}/edit">Saida</a> / 
         <a href="cadastrar_entrada/{{$listar->idEstoque}}/edit">Entrada</a></td>
-        <form action="{{route('cadastrar_estoque.destroy', $listar->idEstoque)}}" method="POST">
+        <form onclick="return confirm('Deseja excluir?');"  action="{{route('cadastrar_estoque.destroy', $listar->idEstoque)}}" method="POST">
           @csrf
           @method('DELETE')
-        <td><button class="fa fa-trash-o" aria-hidden="true" type="submit"></button></td>
+        <td><button onclick="return confirm('Deseja excluir?');"  class="fa fa-trash-o" aria-hidden="true" type="submit"></button></td>
         </form>
 
       </tr>
@@ -100,10 +111,12 @@
         <p>{{session('errors')}}</p>
     </div>
 @endif
-  
+{{ $estoque->appends(['search' => $search])->links() }}
   </table>
 </div>
 </div>
+
+
 <!-- jQuery 2.0.2 -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <!-- Bootstrap -->

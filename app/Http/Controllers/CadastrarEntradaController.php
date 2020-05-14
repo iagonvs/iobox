@@ -10,10 +10,13 @@ use App\Fornecedor;
 use App\Localidade;
 use App\Saida;
 use App\Entrada;
-
+use App\Usuario;
+use Illuminate\Support\Facades\Auth;
+use PDF;
 
 use DB;
 
+//CONTROLLER COM TODOS OS MÉTODOS ENVOLVENDO ENTRADA DE UMA QUANTIDADE DE UM ITEM NO ESTOQUE
 class CadastrarEntradaController extends Controller
 {
 
@@ -30,6 +33,7 @@ class CadastrarEntradaController extends Controller
 
     public function store(Request $request)
     {
+        
         //
     }
 
@@ -37,6 +41,34 @@ class CadastrarEntradaController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function imprimir_pdf(){
+
+        //MÉTODO PRA FAZER UMA EXIBIÇÃO DE RELATÓRIO DE TODAS AS SAÍDAS, GERANDO UM PDF
+        $item = new Item();
+        $fornecedor = new Fornecedor();
+        $localidade = new Localidade();
+
+        $estoque = new Estoque();
+
+        //CONSULTA TRAZENDO TODOS OS DADOS NA TABELA DE ENTRADA
+        $entrada = new Entrada();
+        $entrada = DB::table ('tbEntrada')
+        ->join('tbEstoque', 'tbEntrada.idEstoque', '=', 'tbEstoque.idEstoque')
+        ->join('tbLocalidade', 'tbEntrada.idLocalidade', '=', 'tbLocalidade.idLocalidade')
+        ->join('tbItem', 'tbItem.idItem', '=', 'tbEstoque.idItem')
+        ->join('users', 'tbEntrada.idUser', '=', 'users.id')
+        ->select('idEntrada','quantidade_entrada', 'tbEntrada.data_entrada','descricao_entrada','tbLocalidade.localidade','tbEstoque.idEstoque','tbItem.descricao_item', 'users.name') 
+        ->orderBy('data_entrada', 'DESC')
+        ->get();
+
+        //FUNÇÃO PRINCIPAL USANDO ATRIBUTOS DO DOMPDF / REDIRECIONANDO PRA VIEW relatorio_saida QUE SERÁ O HTML RESPONSÁVEL DO TEMPLATE DO PDF
+        $pdf2 = Pdf::loadView('relatorio_entrada', compact('entrada'));
+
+        //MODELO DE FOLHA E DE EXIBIÇÃO
+        return $pdf2->setPaper('a4')->download('Relatório Entrada.pdf');
+
     }
 
  
@@ -100,6 +132,7 @@ class CadastrarEntradaController extends Controller
         $item = new Item();
         $fornecedor = new Fornecedor();
         $localidade = new Localidade();
+        $usuario = new Usuario();
 
         $entrada = new Entrada();
         
@@ -114,15 +147,18 @@ class CadastrarEntradaController extends Controller
         $entrada->idLocalidade = $request->input('idLocalidade') ;
         $entrada->idEstoque = $request->input('idEstoque') ;
         $entrada->data_entrada = now();
+        $entrada->idUsuario = $usuario = Auth::user()->id;
+        $entrada->descricao_entrada = $request->input('descricao_entrada') ;
+        $entrada->idUser = $usuario = Auth::user()->id;
         $entrada->save();
-
-
 
 
 
         return redirect()->back()
        
         ->with(compact('editar'))
+
+        ->with(compact('usuario'))
 
         ->with(compact('entrada'))
 

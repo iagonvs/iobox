@@ -10,15 +10,16 @@ use App\Localidade;
 
 use DB;
 
+//CONTROLLER COM TODOS OS MÉTODOS ENVOLVENDO A LOCALIDADE
 class CadastrarLocalidadeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
-    {
+    {   
+        if(!\Gate::allows('isAdmin')){
+            abort(403,"Não pode executar essa ação");
+        }
+        //ACESSO PRINCIPAL A TELA DE CADASTRO DE LOCALIDADE
         $localidade = new Localidade();
         $localidade = $localidade::all();
 
@@ -28,30 +29,18 @@ class CadastrarLocalidadeController extends Controller
         
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        if(!\Gate::allows('isAdmin')){
+            abort(403,"Não pode executar essa ação");
+        }
         $localidade = new Localidade();
 
-        
+        //COLETANDO OS DADOS PREENCHIDOS NO INPUT DO FORMULÁRIO
         $localidade->localidade = $request->input('localidade') ;
         $localidade->setor = $request->input('setor') ;
-
+        //SALVANDO NO BANCO DE DADOS
         $localidade->save();
 
         if ($localidade) {
@@ -67,38 +56,29 @@ class CadastrarLocalidadeController extends Controller
         return view('cadastrar_localidade', compact('localidade'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     public function listar(Request $request){
+        if(!\Gate::allows('isAdmin')){
+            abort(403,"Não pode executar essa ação");
+        }
 
         $search = $request->get('search');
 
         $localidade = new Localidade();
 
+        //LISTANDO TODAS AS LOCALIDADES
         $localidade = Localidade::where('localidade', 'LIKE', '%'.$search.'%')->Paginate(10);
 
         return view('listar_localidade', compact('localidade', 'search'));
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
+        if(!\Gate::allows('isAdmin')){
+            abort(403,"Não pode executar essa ação");
+        }
         $editar = new Localidade();
+        //TRAZENDO TODOS AS INFORMAÇÕES DA LOCALIDADE SELECIONADA E REDIRECIONANDO PRA TELA DE EDIÇÃO
         $editar =  Localidade::get()
         ->where('idLocalidade', $id)
         ->first();
@@ -109,16 +89,15 @@ class CadastrarLocalidadeController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
+        if(!\Gate::allows('isAdmin')){
+            abort(403,"Não pode executar essa ação");
+        }
         $editar = new Localidade();
+
+        //DADNDO UM UPDATE NA LOCALIDADE SELECIONADA
         $editar = DB::table ('tbLocalidade')
         ->where('idLocalidade', $id)
         ->update(
@@ -134,22 +113,20 @@ class CadastrarLocalidadeController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
+        if(!\Gate::allows('isAdmin')){
+            abort(403,"Não pode executar essa ação");
+        }
         $localidade = new Localidade();
         
-
-        $deletedRows =  $item::where('idLocalidade', $id)->delete();
+        //DELETANDO A LOCALIDADE SELECIONADA
+        $deletedRows =  $localidade::where('idLocalidade', $id)->delete();
         
         
 
-        if(isset($item)){
+        if(isset($localidade)){
             return redirect()->route('listar_localidade', compact('localidade'));
         }
     }

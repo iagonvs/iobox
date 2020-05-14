@@ -31,14 +31,14 @@
         <div class="col-sm-6">
             <form action="{{ route('listar_item') }}" method="post">
                 @csrf
-                <label class="control-label">Pesquisar</label>
+                <label class="control-label">Pesquisar Item</label>
 
-                <input type="search" class="" name="search" value="{{ $search }}">
+                <input type="search" class="" name="search" value="{{ $search }}" placeholder="Nome do Item">
 
                 <button type="submit" class="btn btn-primary btn-sm" title="Pesquisar">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </button>
-            </form>
+  </form>
         </div>
         <div class="col-lg-24">
         <a href="{{route('cadastrar_item')}}">
@@ -62,10 +62,10 @@
         <th scope="row">{{$listar->idItem}}</th>
         <td>{{$listar->descricao_item}}</td>
         <td><a href="{{route('cadastrar_item.edit', $listar->idItem)}}">Editar</a></td>
-        <form action="{{route('cadastrar_item.destroy', $listar->idItem)}}" method="POST">
+        <form onclick="return confirm('Deseja excluir?');" action="{{route('cadastrar_item.destroy', $listar->idItem)}}" method="POST">
           @csrf
           @method('DELETE')
-        <td><button class="fa fa-trash-o" aria-hidden="true" type="submit"></button></td>
+        <td><button onclick="return confirm('Deseja excluir?');" class="fa fa-trash-o" aria-hidden="true" type="submit"></button></td>
         </form>
 
       </tr>

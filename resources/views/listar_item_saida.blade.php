@@ -32,9 +32,16 @@
                 <div class="col-sm-6">
                     <form action="{{ route('listar_item_saida') }}" method="post">
                         @csrf
-                        <label class="control-label">Pesquisar</label>
+                        <label class="control-label">Pesquisar Item</label>
         
-                        <input type="search" class="" name="search" value="{{ $search }}">
+                        <input type="search" class="" name="search" value="{{ $search }}" placeholder="Nome do Item">
+        
+                        <button type="submit" class="btn btn-primary btn-sm" title="Pesquisar">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+
+                        <label class="control-label">Localidade</label>
+                        <input type="search" class="" name="search_localidade" value="{{ $search_localidade }}" placeholder="Localidade">
         
                         <button type="submit" class="btn btn-primary btn-sm" title="Pesquisar">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -48,24 +55,28 @@
         <table id="example1" class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th scope="col">#</th>
+        <th scope="col">Cod. Item</th>
         <th scope="col">Item</th>
         <th scope="col">Quantidade Total</th>
+        <th scope="col">Fornecedor</th>
+        <th scope="col">Localidade</th>
         <th scope="col">Ações</th>
       </tr>
     </thead>
     @foreach ($estoque as $listar)
     <tbody>
       <tr>
-        <th scope="row">{{$listar->idEstoque}}</th>
+        <th scope="row">{{$listar->idItem}}</th>
         <td>{{$listar->descricao_item}}</td>
         <td>{{$listar->quantidade_total}}</td> 
+        <td>{{$listar->razao_social}}</td> 
+        <td>{{$listar->localidade}}</td> 
     <td><a href="cadastrar_saida/{{$listar->idEstoque}}/edit">SAÍDA</a></td>
       </tr>
     </tbody>
     @endforeach
 
-
+    {{ $estoque->appends(['search' => $search])->links() }}
   
   </table>
 </div>

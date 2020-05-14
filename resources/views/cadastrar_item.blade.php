@@ -10,12 +10,15 @@
         <div class="box-header">
             <h3 class="box-title">Cadastrar Item</h3>
         </div><!-- /.box-header -->
+        <div class="col-lg-36" style="margin-left: 1000px;">
+            <a href="{{route('listar_item')}}"><button type="submit" class="btn btn-info">Listar Itens</button></a>
+        </div>
 
     <form role="form" action="{{route('cadastrar_item.store')}}" method="post">
         @csrf
         <div class="box-body">
         <div class="form-group">
-                <label for="quantidade">Descrição do Item</label>
+                <label for="quantidade">Descrição do Item *</label>
                 <br>
                 <br>
                 <input type="text" class="form-control" name="descricao_item" placeholder="Descrição do Item">
@@ -25,10 +28,20 @@
             <br>
             <br>
             <button type="submit" class="btn btn-primary">Cadastrar Item</button>
+            
         </div>
     </div>
       </form>
     </div>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
       @if(session('sucess'))
     <div class="alert alert-success">
         <p>{{session('sucess')}}</p>

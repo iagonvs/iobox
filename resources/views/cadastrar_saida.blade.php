@@ -54,10 +54,11 @@
                 <label for="quantidade">Descrição da Saída</label>
                 <input type="text" class="form-control" name="descricao_saida" placeholder="Descrição da Saída">
         </div>
-     
-        <br>
-        
- <br>
+
+ <div class="form-group">
+        <label for="quantidade">ID do Chamado</label>
+        <input type="number" class="form-control" name="idChamado" placeholder="Chamado">
+</div>
         <button type="submit" class="btn btn-primary">Cadastrar</button>
 
         <a href="{{route('listar_item_saida')}}"><button type="button" class="btn btn-info">Voltar</button></a> 

@@ -48,6 +48,13 @@
         <br>
         <br>
 
+        <div class="form-group">
+                <label for="quantidade">Descrição da Entrada</label>
+                <input type="text" class="form-control" name="descricao_entrada" placeholder="Descrição da Entrada">
+        </div>
+     <br>
+     <br>
+
         <button type="submit" class="btn btn-primary">Cadastrar</button>
 
         <a href="{{route('listar_item_entrada')}}"><button type="button" class="btn btn-info">Voltar</button></a> 

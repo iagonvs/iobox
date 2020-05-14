@@ -10,17 +10,17 @@ use App\Fornecedor;
 
 use DB;
 
-
+//CONTROLLER COM TODOS OS MÉTODOS ENVOLVENDO O FORNECEDOR
 class CadastrarFornecedorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
 
     public function index()
-    {
+    {   
+        if(!\Gate::allows('isAdmin')){
+            abort(403,"Não pode executar essa ação");
+        }
+        //ACESSO PRINCIPAL A TELA DE CADASTRO DE FORNECEDOR
         $fornecedor = new Fornecedor();
         $fornecedor = $fornecedor::all();
 
@@ -29,40 +29,46 @@ class CadastrarFornecedorController extends Controller
         ->with(compact('fornecedor')); 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
-    {
+    {   
+        if(!\Gate::allows('isAdmin')){
+            abort(403,"Não pode executar essa ação");
+        }
+        //INSTANCIANDO A MODEL FORNECEDOR
         $fornecedor = new Fornecedor();
 
+        //VALIDAÇÃO DOS CAMPOS A SEREM PREENCHIDOS NO FORMULÁRIO
+        $fornecedor = $request->validate([
+            'razao_social' => 'required|max:255',
+            'cpf_cnpj' => 'required|max:255',
+           
+        ]);
+
+        //INSTANCIANDO NOVAMENTE A MODEL FORNECEDOR, PORÉM COM UMA VARIAVEL DIFERENTE PARA FAZER O INSERT NO BANCO DE DADOS
+        $fornecedor_cadastrar = new Fornecedor();
         
-        $fornecedor->razao_social = $request->input('razao_social') ;
-        $fornecedor->cpf_cnpj = $request->input('cpf_cnpj') ;
-        $fornecedor->telefone_celular = $request->input('telefone_celular') ;
-        $fornecedor->telefone_resid = $request->input('telefone_resid') ;
-        $fornecedor->telefone_comercial = $request->input('telefone_comercial') ;
-        $fornecedor->email_fornecedor = $request->input('email_fornecedor') ;
-
-        $fornecedor->save();
-
+        //COLETANDO OS DADOS PREENCHIDOS NOS CAMPOS DO FORMULÁRIO
+        $fornecedor_cadastrar->razao_social = $request->input('razao_social') ;
+        $fornecedor_cadastrar->cpf_cnpj = $request->input('cpf_cnpj') ;
+        $fornecedor_cadastrar->telefone_celular = $request->input('telefone_celular') ;
+        $fornecedor_cadastrar->telefone_resid = $request->input('telefone_resid') ;
+        $fornecedor_cadastrar->telefone_comercial = $request->input('telefone_comercial') ;
+        $fornecedor_cadastrar->email_fornecedor = $request->input('email_fornecedor') ;
+        //INSERINDO NA TABELA DE FORNECEDORES NO BANCO DE DADOS
+        $fornecedor_cadastrar->save();
+        
+        //SE DER TUDO CERTO, VOLTA PRA TELA DE CADASTRO E APRESENTA UMA MENSSAGEM DE EXITO 
         if ($fornecedor) {
             return redirect()
                        ->back()
                        ->with('sucess','Fornecedor cadastrado com sucesso');
+        //SE NÃO, NÃO CADASTRA E APRESENTA MENSSAGEM DE ERRO
             } else {
                         return redirect()
                                ->back()
@@ -72,12 +78,7 @@ class CadastrarFornecedorController extends Controller
         return view('cadastrar_fornecedor', compact('item'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
@@ -85,50 +86,50 @@ class CadastrarFornecedorController extends Controller
 
     public function listar(Request $request){
 
+        if(!\Gate::allows('isAdmin')){
+            abort(403,"Não pode executar essa ação");
+        }
   
-
         $fornecedor = new Fornecedor();
 
+        //USANDO A FUNÇÃO "SEARCH" PARA O CAMPO "PESQUISAR" NA TELA DE LISTAGEM
         $search = $request->get('search');
 
+        //SELECT NA TABELA FORNECEDOR TRAZENNDO TODOS OS FORNECEDORES 
         $fornecedor = Fornecedor::where('razao_social', 'LIKE', '%'.$search.'%')->Paginate(10);
 
-    
-
-        
 
         return view('listar_fornecedor', compact('fornecedor', 'search'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
+        if(!\Gate::allows('isAdmin')){
+            abort(403,"Não pode executar essa ação");
+        }
         $editar = new Fornecedor();
+
+        //TRAZENDO TODOS OS DADOS DO FORNECEDOR SELECIONADO PARA EDITA-LO
         $editar =  Fornecedor::get()
         ->where('idFornecedor', $id)
         ->first();
         
-
+        //REDIRECIONA PARA TELA DE EDIÇAO PARA DAR O UPDATE/OU NÃO NO FORNECEDOR SELECIONADO
         if(isset($editar)){
             return view('editar_fornecedor', ['editar'=>$editar]);
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
+        if(!\Gate::allows('isAdmin')){
+            abort(403,"Não pode executar essa ação");
+        }
         $editar = new Fornecedor();
+
+        //DANDO UM UPDATE NO FORNECEDOR SELECIONADO
         $editar = DB::table ('tbFornecedor')
         ->where('idFornecedor', $id)
         ->update(
@@ -148,23 +149,20 @@ class CadastrarFornecedorController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        $item = new Fornecedor();
+        if(!\Gate::allows('isAdmin')){
+            abort(403,"Não pode executar essa ação");
+        }
+        $fornecedor = new Fornecedor();
+        
+        //DELETANDO UM FORNECEDOR SELECIONADO
+        $deletedRows =  $fornecedor::where('idFornecedor', $id)->delete();
+        
         
 
-        $deletedRows =  $item::where('idItem', $id)->delete();
-        
-        
-
-        if(isset($item)){
-            return redirect()->route('listar', compact('item'));
+        if(isset($fornecedor)){
+            return redirect()->route('home', compact('fornecedor'));
         }
     }
 }

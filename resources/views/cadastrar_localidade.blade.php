@@ -11,6 +11,10 @@
             <h3 class="box-title">Cadastrar Localidade</h3>
         </div><!-- /.box-header -->
 
+        <div class="col-lg-36" style="margin-left: 980px;">
+            <a href="{{route('listar_localidade')}}"><button type="submit" class="btn btn-info">Listar Localidades</button></a>
+        </div>
+
     <form role="form" action="{{route('cadastrar_localidade.store')}}" method="post">
         @csrf
         <div class="box-body">

@@ -34,10 +34,16 @@
 
         <label for="quantidade">Status</label>
         <select name='idSolicitacaoStatus' class="form-control form-control-lg">
-                
+            @can('isAdmin')         
                 @foreach ($status as $listar)
               <option value='{{$listar->idSolicitacaoStatus}}'>{{$listar->solicitacao_status}}</option>
               @endforeach
+            @endcan
+            @can('isRegular') 
+            @foreach ($status as $listar)
+            <option value='{{$listar->idSolicitacaoStatus = 2}}'>{{$listar->idSolicitacaoStatus}}</option>
+            @endforeach
+            @endcan
         </select >
         
       

@@ -77,17 +77,17 @@
         <td>{{$listar->telefone_comercial}}</td>
         <td>{{$listar->email_fornecedor}}</td>
         <td><a href="cadastrar_fornecedor/{{$listar->idFornecedor}}/edit">Editar</a></td>
-        <form action="{{route('cadastrar_fornecedor.destroy', $listar->idFornecedor)}}" method="POST">
+        <form onclick="return confirm('Deseja excluir?');" action="{{route('cadastrar_fornecedor.destroy', $listar->idFornecedor)}}" method="POST">
           @csrf
           @method('DELETE')
-        <td><button class="fa fa-trash-o" aria-hidden="true" type="submit"></button></td>
+        <td><button onclick="return confirm('Deseja excluir?');" class="fa fa-trash-o" aria-hidden="true" type="submit"></button></td>
         </form>
 
       </tr>
     </tbody>
     @endforeach
 
-    {{ $fornecedor->links() }}
+    {{ $fornecedor->appends(['search' => $search])->links() }}
   </table>
 </div>
 </div>

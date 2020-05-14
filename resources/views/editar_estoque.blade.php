@@ -13,23 +13,28 @@
 
                 <div class="form-group">
                   <label for="item">Quantidade</label>
-                  <input type="text" class="form-control" id="quantidade_total" name="quantidade_total" value="{{$editar->quantidade_total}}"  >
+                  <input type="number" class="form-control" id="quantidade_total" name="quantidade_total" value="{{$editar->quantidade_total}}"  >
+                </div>
+                
+                <div class="form-group">
+                  <label for="item">Estoque Minimo</label>
+                  <input type="number" class="form-control" id="quantidade_total" name="estoque_min" value="{{$editar->estoque_min}}"  >
                 </div>
                 <div class="form-group">
-                        <label for="item">Setor</label>
+                        <label for="item">Número NF</label>
                         <input type="text" class="form-control" id="numero_nf" name="numero_nf" value="{{$editar->numero_nf}}"  >
                       </div>
                       <div class="form-group">
-                            <label for="item">Setor</label>
-                            <input type="text" class="form-control" id="data_nf" name="data_nf" value="{{$editar->data_nf}}"  >
+                            <label for="item">Data NF</label>
+                            <input type="date" class="form-control" id="data_nf" name="data_nf" value="{{$editar->data_nf}}"  >
                           </div>
                           <div class="form-group">
-                                <label for="item">Setor</label>
-                                <input type="text" class="form-control" id="data_garantia" name="data_garantia" value="{{$editar->data_garantia}}"  >
+                                <label for="item">Data Garantia</label>
+                                <input type="date" class="form-control" id="data_garantia" name="data_garantia" value="{{$editar->data_garantia}}"  >
                               </div>
 
                       <select name='idItem' class="form-control form-control-lg">
-                          <option>{{$editar->descricao_item}}</option>
+                          <option value='{{$editar->idItem}}'>{{$editar->descricao_item}}</option>
                             @foreach ($item as $listar)
                           <option value='{{$listar->idItem}}'>{{$listar->descricao_item}}</option>
                           @endforeach
@@ -38,7 +43,7 @@
                     <br>
                     <br> 
                     <select name='idFornecedor' class="form-control form-control-lg">
-                        <option>{{$editar->razao_social}}</option>
+                        <option value='{{$editar->idFornecedor}}'>{{$editar->razao_social}}</option>
                             @foreach ($fornecedor as $listar)
                           <option value='{{$listar->idFornecedor}}'>{{$listar->razao_social}}</option>
                           @endforeach
@@ -47,7 +52,7 @@
                     <br>
                     <br>  
                     <select name='idLocalidade' class="form-control form-control-lg">
-                        <option>{{$editar->localidade}} / {{$editar->setor}}</option>
+                        <option value='{{$editar->idLocalidade}}'>{{$editar->localidade}} / {{$editar->setor}}</option>
                       @foreach ($localidade as $listar)
                     <option value='{{$listar->idLocalidade}}'>{{$listar->localidade}} / {{$listar->setor}}</option>
                     @endforeach

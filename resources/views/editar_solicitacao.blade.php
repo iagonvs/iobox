@@ -22,7 +22,7 @@
 
         <label for="quantidade">Localidade</label>
         <select name='idLocalidade' class="form-control form-control-lg">
-            <option>{{$comprar->localidade}}</option>
+            <option value='{{$comprar->idLocalidade}}'>{{$comprar->localidade}}</option>
                 @foreach ($localidade as $listar)
               <option value='{{$listar->idLocalidade}}'>{{$listar->localidade}}</option>
               @endforeach
@@ -30,7 +30,7 @@
 
         <label for="quantidade">Status</label>
         <select name='idSolicitacaoStatus' class="form-control form-control-lg">
-            <option>{{$comprar->solicitacao_status}}</option>
+           <option value='{{$comprar->idSolicitacaoStatus}}'>{{$comprar->solicitacao_status}}</option>
                 @foreach ($status as $listar)
               <option value='{{$listar->idSolicitacaoStatus}}'>{{$listar->solicitacao_status}}</option>
               @endforeach

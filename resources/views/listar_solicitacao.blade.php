@@ -44,8 +44,10 @@
         <th scope="col">Localidade</th>
         <th scope="col">Solicitante</th>
         <th scope="col">Status</th>
+        @can('isAdmin')
         <th scope="col">Ações</th>
         <th scope="col">Deletar</th>
+        @endcan
       </tr>
     </thead>
     @foreach ($comprar as $listar)
@@ -58,13 +60,14 @@
         <td>{{$listar->localidade}}</td>
         <td>{{$listar->name}}</td>
         <td>{{$listar->solicitacao_status}}</td>
+        @can('isAdmin')
         <td><a href="cadastrar_solicitacao/{{$listar->idSolicitacaoCompra}}/edit">Atualizar</a>
-        <form action="{{route('cadastrar_solicitacao.destroy', $listar->idSolicitacaoCompra)}}" method="POST">
+        <form onclick="return confirm('Deseja excluir?');" action="{{route('cadastrar_solicitacao.destroy', $listar->idSolicitacaoCompra)}}" method="POST">
           @csrf
           @method('DELETE')
-        <td><button class="fa fa-trash-o" aria-hidden="true" type="submit"></button></td>
+        <td><button onclick="return confirm('Deseja excluir?');" class="fa fa-trash-o" aria-hidden="true" type="submit"></button></td>
         </form>
-
+        @endcan
       </tr>
     </tbody>
     @endforeach
@@ -79,7 +82,7 @@
         <p>{{session('errors')}}</p>
     </div>
 @endif
-  
+
   </table>
 </div>
 </div>
